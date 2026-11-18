@@ -95,7 +95,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .fx-sign { left: 77.64%; top: 11.5%; width: 12.01%; height: 8.63%; background: radial-gradient(closest-side, rgba(242, 85, 63, .45), transparent); animation: neon 4.5s linear infinite; }
 @keyframes neon { 0%, 70%, 72%, 74%, 100% { opacity: .9; } 71%, 73% { opacity: .15; } }
 /* Light spilling out the door onto the floor, pulsing gently like music inside */
-.fx-spill { left: 75%; top: 80%; width: 23.6%; height: 18.75%; background: radial-gradient(closest-side, rgba(242, 85, 63, .35), transparent); animation: thump 2.4s ease-in-out infinite alternate; }
+.fx-spill { left: 75%; top: 80%; width: 23.6%; height: 18.75%; background: radial-gradient(closest-side, rgba(242, 85, 63, .35), transparent); animation: thump 1s ease-in-out infinite alternate; }
 @keyframes thump { from { opacity: .25; } to { opacity: .85; } }
 /* Twinkles: small party lights that come and go */
 .fx-t { aspect-ratio: 1; background: radial-gradient(closest-side, rgba(255, 240, 235, 1), rgba(242, 85, 63, .5) 50%, transparent); opacity: 0; animation: twinkle 6s ease-in-out infinite; }
@@ -118,12 +118,14 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .venue { position: absolute; left: 74.92%; top: 20%; width: 17.5%; height: 63.43%; overflow: hidden; }
 .venue svg { display: block; width: 100%; height: 100%; overflow: hidden; }
 .venue .p, .venue .dj { transform-box: fill-box; transform-origin: 50% 100%; }
-.venue .dj-head { transform-box: fill-box; transform-origin: 50% 90%; animation: nod .47s ease-in-out infinite alternate; }
-.venue .p { animation: bob .47s ease-in-out infinite alternate; }
-.venue .p.j { animation: jump .94s cubic-bezier(.3, 0, .4, 1) infinite; }
-.venue .d1 { animation-delay: -.1s; } .venue .d2 { animation-delay: -.25s; } .venue .d3 { animation-delay: -.4s; } .venue .d4 { animation-delay: -.6s; }
-.venue .dj { animation: bob .47s ease-in-out infinite alternate; }
-.venue .led { animation: led .47s steps(2, jump-none) infinite; }
+.venue .dj-head { transform-box: fill-box; transform-origin: 50% 90%; animation: nod .5s ease-in-out infinite; }
+/* One shared tempo: 120 BPM, a beat every .5s. hero-sound.js lines these up with the music. */
+.venue .p { animation: bob .5s infinite; }
+.venue .p.j { animation: jump 1s infinite; }
+.venue .d2 { animation-delay: -.03s; } .venue .d3 { animation-delay: .03s; } .venue .d4 { animation-delay: -.06s; }
+.venue .p.j.d2, .venue .p.j.d4 { animation-delay: -.5s; }
+.venue .dj { animation: bob .5s infinite; }
+.venue .led { animation: led .5s steps(2, jump-none) infinite; }
 .venue .up-r, .venue .up-l, .venue [class^="fa-"], .venue [class*=" fa-"], .venue .dj-up, .venue .dj-fa { transform-box: view-box; }
 .venue .up-r, .venue .dj-up { transform-origin: 19px 47px; } .venue .up-l { transform-origin: -19px 47px; }
 .venue .fa-up-r { transform-origin: 30px 16px; } .venue .fa-up-l { transform-origin: -30px 16px; }
@@ -132,20 +134,22 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .venue .fa-pump-r { transform-origin: 33px 23px; } .venue .fa-pump-l { transform-origin: -33px 23px; }
 .venue .fa-phone-r { transform-origin: 27px 21px; } .venue .fa-phone-l { transform-origin: -27px 21px; }
 .venue .dj-fa { transform-origin: 33px 23px; }
-.venue .up-r { animation: sway-r 1.88s ease-in-out infinite; } .venue .up-l { animation: sway-l 1.88s ease-in-out infinite; }
-.venue .fa-r { animation: flex-r .94s ease-in-out infinite alternate; } .venue .fa-l { animation: flex-l .94s ease-in-out infinite alternate; }
+.venue .up-r { animation: sway-r 2s ease-in-out infinite; } .venue .up-l { animation: sway-l 2s ease-in-out infinite; }
+.venue .fa-r { animation: flex-r .5s ease-in-out infinite alternate; } .venue .fa-l { animation: flex-l .5s ease-in-out infinite alternate; }
 .venue .fa-phone-r { animation: none; }
-.venue .d2 .up-r, .venue .d2 .up-l { animation-delay: -.6s; animation-duration: 1.6s; } .venue .d3 .up-r, .venue .d3 .up-l { animation-delay: -1.1s; animation-duration: 2.1s; }
-.venue .d2 .fa-r, .venue .d2 .fa-l { animation-delay: -.3s; } .venue .d4 .fa-r, .venue .d4 .fa-l { animation-delay: -.7s; animation-duration: 1.2s; }
-.venue .dj-up { animation: dj-up .94s ease-in-out infinite; } .venue .dj-fa { animation: dj-fa .94s ease-in-out infinite; }
+.venue .d2 .up-r, .venue .d2 .up-l { animation-delay: -.5s; } .venue .d3 .up-r, .venue .d3 .up-l { animation-delay: -1s; } .venue .d4 .up-r, .venue .d4 .up-l { animation-delay: -1.5s; }
+.venue .d2 .fa-r, .venue .d2 .fa-l, .venue .d4 .fa-r, .venue .d4 .fa-l { animation-delay: -.5s; }
+.venue .dj-up { animation: dj-up 1s ease-in-out infinite; } .venue .dj-fa { animation: dj-fa 1s ease-in-out infinite; }
 @keyframes sway-r { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(9deg); } }
 @keyframes sway-l { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(-9deg); } }
 @keyframes flex-r { from { transform: rotate(10deg); } to { transform: rotate(-14deg); } }
 @keyframes flex-l { from { transform: rotate(-10deg); } to { transform: rotate(14deg); } }
 @keyframes dj-up { 0%, 48%, 100% { transform: rotate(16deg); } 20%, 30% { transform: rotate(-8deg); } }
 @keyframes dj-fa { 0%, 48%, 100% { transform: rotate(32deg); } 20%, 30% { transform: rotate(-4deg); } }
-@keyframes bob { from { transform: translateY(0); } to { transform: translateY(-5px); } }
-@keyframes jump { 0%, 55%, 100% { transform: translateY(0); } 25% { transform: translateY(-16px); } }
+/* Bounce: dip on the beat, rise between beats */
+@keyframes bob { 0% { transform: translateY(2px); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: translateY(-4px); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } 100% { transform: translateY(2px); } }
+/* Jump: push off on the beat, ease out to the top, fall back and land on the next downbeat, small knee bend */
+@keyframes jump { 0% { transform: translateY(2px); animation-timing-function: cubic-bezier(.15, .6, .4, 1); } 42% { transform: translateY(-15px); animation-timing-function: cubic-bezier(.6, 0, .85, .4); } 84% { transform: translateY(2px); animation-timing-function: ease-out; } 92% { transform: translateY(3px); } 100% { transform: translateY(2px); } }
 @keyframes nod { from { transform: rotate(-4deg); } to { transform: rotate(6deg); } }
 @keyframes led { from { opacity: 1; } to { opacity: .3; } }
 @media (prefers-reduced-motion: reduce) { .fx { display: none; } .venue * { animation: none !important; } }
@@ -271,3 +275,12 @@ input:user-invalid, select:user-invalid { border-color: var(--orange); }
 .links { display: grid; gap: .75rem; padding: 0; list-style: none; font-weight: 700; font-size: 1.15rem; }
 .sources { font-size: .9rem; color: var(--muted); margin-top: 1.5rem; }
 .cta-band { display: grid; gap: 1.4rem; justify-items: start; }
+
+/* Opt-in sound for the hero party (never autoplays) */
+.sound-toggle { display: inline-flex; align-items: center; gap: .55rem; justify-self: start; font: 700 .9rem/1 var(--font); color: var(--white); background: transparent; border: 2px solid var(--navy-line); padding: .65rem .95rem; cursor: pointer; }
+.sound-toggle:hover { border-color: var(--white); }
+.sound-toggle svg { width: 1.2rem; height: 1.2rem; fill: var(--orange); }
+.sound-toggle .wave { fill: none; stroke: var(--orange); stroke-width: 2; stroke-linecap: round; opacity: .35; }
+.sound-toggle[aria-pressed="true"] { border-color: var(--orange); }
+.sound-toggle[aria-pressed="true"] .wave { opacity: 1; }
+.sound-toggle[hidden] { display: none; }
