@@ -3,7 +3,8 @@ const assert = require('node:assert');
 const { readSite } = require('./helpers');
 
 const css = readSite('css/styles.css');
-const ALLOWED = ['#F2553F', '#0A1128', '#FFFFFF', '#131C3A', '#1D2750', '#E9ECF4', '#5A6382', '#B9C0D8'];
+// Brand colors and tints, plus the DoorPass scanner's own status colors (Admitted, Check ID, Denied) used on the hero phone
+const ALLOWED = ['#F2553F', '#0A1128', '#FFFFFF', '#131C3A', '#1D2750', '#E9ECF4', '#5A6382', '#B9C0D8', '#16A34A', '#F59E0B', '#DC2626'];
 
 test('site uses only brand colors and declared tints', () => {
   const found = [...new Set((css.match(/#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b/g) || []).map((c) => c.toUpperCase()))];

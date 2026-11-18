@@ -152,7 +152,29 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @keyframes jump { 0% { transform: translateY(2px); animation-timing-function: cubic-bezier(.15, .6, .4, 1); } 42% { transform: translateY(-15px); animation-timing-function: cubic-bezier(.6, 0, .85, .4); } 84% { transform: translateY(2px); animation-timing-function: ease-out; } 92% { transform: translateY(3px); } 100% { transform: translateY(2px); } }
 @keyframes nod { from { transform: rotate(-4deg); } to { transform: rotate(6deg); } }
 @keyframes led { from { opacity: 1; } to { opacity: .3; } }
-@media (prefers-reduced-motion: reduce) { .fx { display: none; } .venue * { animation: none !important; } }
+/* Live scan result on the hero phone: Admitted (green), Check ID (yellow), Denied (red), the DoorPass scanner's own
+   status colors, one every 3.5 s. Laid out in scene pixels (--u = 1 px of the 1440 x 800 scene). */
+.scan-ui { container-type: inline-size; }
+.su-art { --u: .069444cqw; position: absolute; left: 0; top: 0; width: calc(1440 * var(--u)); height: calc(800 * var(--u)); transform: scale(.84); transform-origin: calc(1440 * var(--u)) calc(496 * var(--u)); }
+.su-phone { position: absolute; left: calc(770 * var(--u)); top: calc(150 * var(--u)); width: calc(300 * var(--u)); height: calc(612 * var(--u)); transform: rotate(-7deg); }
+.su-screen { position: absolute; left: calc(12 * var(--u)); top: calc(12 * var(--u)); width: calc(276 * var(--u)); height: calc(588 * var(--u)); }
+.su-state { position: absolute; left: calc(14 * var(--u)); top: calc(363 * var(--u)); width: calc(248 * var(--u)); opacity: 0; animation: su-cycle 10.5s infinite; }
+.su-check { animation-delay: 3.5s; } .su-deny { animation-delay: 7s; }
+.su-band { display: flex; align-items: center; gap: calc(10 * var(--u)); height: calc(54 * var(--u)); padding: 0 calc(14 * var(--u)); color: var(--white); }
+.su-ok .su-band { background: #16A34A; } .su-check .su-band { background: #F59E0B; color: var(--navy); } .su-deny .su-band { background: #DC2626; }
+.su-icon { display: grid; place-items: center; width: calc(30 * var(--u)); height: calc(30 * var(--u)); background: var(--navy); }
+.su-icon i { font: 700 calc(19 * var(--u))/1 var(--font); font-style: normal; color: var(--white); }
+.su-band b { font: 700 calc(22 * var(--u))/1 var(--font); letter-spacing: .02em; }
+.su-guest { height: calc(107 * var(--u)); padding: calc(12 * var(--u)) calc(14 * var(--u)); background: var(--white); color: var(--navy); }
+.su-guest p { margin: 0; }
+.su-nm { font: 700 calc(17 * var(--u))/1.2 var(--font); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.su-mt { font: 400 calc(11 * var(--u))/1.35 var(--font); color: var(--muted); margin-top: calc(2 * var(--u)) !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.su-bar { height: calc(7 * var(--u)); margin-top: calc(10 * var(--u)); background: var(--tint); }
+.su-bar i { display: block; width: 51.5%; height: 100%; background: var(--navy); }
+.su-cnt { display: flex; justify-content: space-between; margin-top: calc(6 * var(--u)) !important; font: 700 calc(11 * var(--u))/1.2 var(--font); }
+.su-cnt span { font-weight: 400; color: var(--muted); }
+@keyframes su-cycle { 0% { opacity: 0; transform: scale(.96); } 3% { opacity: 1; transform: scale(1.03); } 6%, 30.5% { opacity: 1; transform: scale(1); } 33.3%, 100% { opacity: 0; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .fx { display: none; } .venue * { animation: none !important; } .su-state { animation: none; } .su-ok { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 /* Sections */
