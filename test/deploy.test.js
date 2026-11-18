@@ -31,3 +31,9 @@ test('compose serves the apex domain and redirects www', () => {
 test('ready to deploy: no placeholder webhook host left', { skip: process.env.PRE_DEPLOY ? false : 'set PRE_DEPLOY=1 before deploying' }, () => {
   for (const f of ['public/index.html', 'security-headers.conf']) assert.ok(!/REPLACE-ME/.test(read(f)), `${f} still has the placeholder webhook host`);
 });
+
+test('VPS compose routes demo.doorpass.vip (the home page button points there)', () => {
+  const c = read('docker-compose.vps.yml');
+  assert.match(c, /Host\(`demo\.doorpass\.vip`\)/);
+  assert.match(c, /redirectregex\.permanent=false/);
+});

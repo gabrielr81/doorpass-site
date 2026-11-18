@@ -48,6 +48,15 @@ services:
       - traefik.http.middlewares.doorpass-www-redirect.redirectregex.replacement=https://doorpass.vip/$${1}
       - traefik.http.middlewares.doorpass-www-redirect.redirectregex.permanent=true
       - traefik.http.services.doorpass-site.loadbalancer.server.port=80
+      # demo.doorpass.vip: temporary redirect to the live DoorPass demo app (change the replacement to move the demo)
+      - traefik.http.routers.doorpass-demo.rule=Host(`demo.doorpass.vip`)
+      - traefik.http.routers.doorpass-demo.entrypoints=websecure
+      - traefik.http.routers.doorpass-demo.tls.certresolver=letsencrypt
+      - traefik.http.routers.doorpass-demo.middlewares=doorpass-demo-redirect
+      - traefik.http.routers.doorpass-demo.service=doorpass-site
+      - traefik.http.middlewares.doorpass-demo-redirect.redirectregex.regex=^https://demo\.doorpass\.vip/?(.*)
+      - traefik.http.middlewares.doorpass-demo-redirect.redirectregex.replacement=https://tickets.aimybiz.cloud/$${1}
+      - traefik.http.middlewares.doorpass-demo-redirect.redirectregex.permanent=false
 
 volumes:
   doorpass-site-files:
