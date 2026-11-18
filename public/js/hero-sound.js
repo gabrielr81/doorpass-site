@@ -2,8 +2,8 @@
 // 120 BPM; the crowd and DJ animations are re-timed to land on the beat when the sound starts.
 (() => {
   const btn = document.getElementById('hero-sound');
-  if (!btn || !(window.AudioContext || window.webkitAudioContext)) return;
-  btn.hidden = false;
+  if (!btn) return;
+  if (!(window.AudioContext || window.webkitAudioContext)) { btn.hidden = true; return; }
   const BEAT = 0.5;            // seconds per beat (120 BPM); matches the CSS animation lengths
   const STEP = BEAT / 4;       // 16th notes
   const ROOTS = [55, 43.65, 65.41, 49];                              // A1 F1 C2 G1, one per bar

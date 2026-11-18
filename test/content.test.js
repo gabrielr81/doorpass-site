@@ -54,7 +54,7 @@ test('terms and privacy exist, are marked draft, privacy has the data sentence',
 });
 
 test('hero sound is opt-in: a toggle that starts off, no autoplaying media', () => {
-  assert.match(html, /<button class="sound-toggle" id="hero-sound" type="button" aria-pressed="false" hidden>/);
+  assert.match(html, /<button class="sound-toggle" id="hero-sound" type="button" aria-pressed="false">/);
   assert.ok(!/<(audio|video)\b[^>]*autoplay/i.test(html));
   assert.ok(html.includes('<script src="/js/hero-sound.js" defer></script>'));
 });

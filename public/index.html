@@ -188,14 +188,14 @@
         <a class="btn btn-ghost" href="https://demo.doorpass.vip">See the live demo</a>
       </div>
       <p class="fine">Built for venues under 1,000 capacity. Bigger venues get their own server.</p>
-      <button class="sound-toggle" id="hero-sound" type="button" aria-pressed="false" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sound on</span></button>
+      <button class="sound-toggle" id="hero-sound" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sound on</span></button>
     </div>
     <div class="hero-art">
       <picture class="layer">
-        <source media="(min-width: 60rem)" srcset="/assets/hero/back-1440.webp 1440w, /assets/hero/back-2880.webp 2880w" sizes="100vw" width="2880" height="1600">
-        <img src="/assets/hero/back-m-680.webp" srcset="/assets/hero/back-m-680.webp 680w, /assets/hero/back-m-1360.webp 1360w" sizes="(min-width: 60rem) 100vw, 92vw" width="1360" height="1400" decoding="async" alt="A venue door with a lit VIP sign, glowing from the party inside">
+        <source media="(min-width: 60rem)" srcset="/assets/hero/back-1440-v2.webp 1440w, /assets/hero/back-2880-v2.webp 2880w" sizes="100vw" width="2880" height="1600">
+        <img src="/assets/hero/back-m-680-v2.webp" srcset="/assets/hero/back-m-680-v2.webp 680w, /assets/hero/back-m-1360-v2.webp 1360w" sizes="(min-width: 60rem) 100vw, 92vw" width="1360" height="1400" fetchpriority="high" decoding="async" alt="A venue door with a lit VIP sign, glowing from the party inside">
       </picture>
-      <div class="scene-box"><div class="venue" aria-hidden="true"><svg viewBox="0 0 300 604" preserveAspectRatio="none" focusable="false">
+      <div class="scene-box"><div class="venue" aria-hidden="true"><svg class="venue-scene v-club is-on" data-venue="club" viewBox="0 0 300 604" preserveAspectRatio="none" focusable="false">
 <defs><radialGradient id="vglow"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient></defs>
 <g class="stage">
   <ellipse cx="130" cy="214" rx="96" ry="60" fill="url(#vglow)"/>
@@ -214,9 +214,9 @@
 </svg></div></div>
       <picture class="layer">
         <source media="(min-width: 60rem)" srcset="/assets/hero/front-1440-v3.webp 1440w, /assets/hero/front-2880-v3.webp 2880w" sizes="100vw" width="2880" height="1600">
-        <img src="/assets/hero/front-m-680-v3.webp" srcset="/assets/hero/front-m-680-v3.webp 680w, /assets/hero/front-m-1360-v3.webp 1360w" sizes="(min-width: 60rem) 100vw, 92vw" width="1360" height="1400" fetchpriority="high" decoding="async" alt="A door staff phone running the DoorPass scanner, cycling through Admitted, Check ID and Denied results, 412 of 800 checked in, next to the guest's emailed QR ticket and a velvet rope, while the crowd dances inside">
+        <img src="/assets/hero/front-m-680-v3.webp" srcset="/assets/hero/front-m-680-v3.webp 680w, /assets/hero/front-m-1360-v3.webp 1360w" sizes="(min-width: 60rem) 100vw, 92vw" width="1360" height="1400" fetchpriority="high" decoding="async" alt="A door staff phone running the DoorPass scanner, cycling through Admitted, Check ID and Denied results, 412 of 800 checked in, next to the guest's emailed QR ticket and a velvet rope, while the venue inside changes between a club, a concert, a members lounge, a comedy show and a festival">
       </picture>
-      <div class="scene-box scan-ui" aria-hidden="true"><div class="su-art"><div class="su-phone"><div class="su-screen"><div class="su-scan"></div><div class="su-state su-ok"><div class="su-band"><span class="su-icon"><i>&#10003;</i></span><b>ADMITTED</b></div><div class="su-guest"><p class="su-nm">Jordan M.</p><p class="su-mt">General admission · 9:42 PM</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div><div class="su-state su-check"><div class="su-band"><span class="su-icon"><i>!</i></span><b>CHECK ID</b></div><div class="su-guest"><p class="su-nm">Sam T.</p><p class="su-mt">Already checked in at 9:31 PM. Ask for ID.</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div><div class="su-state su-deny"><div class="su-band"><span class="su-icon"><i>&#10005;</i></span><b>DENIED</b></div><div class="su-guest"><p class="su-nm">Ticket not recognised</p><p class="su-mt">Not valid for Friday Night Live</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div></div></div></div></div>
+      <div class="scene-box scan-ui" aria-hidden="true"><div class="su-art"><div class="vsign"><span class="vs is-on" data-venue="club">VIP</span><span class="vs" data-venue="live">LIVE</span><span class="vs" data-venue="lounge">MEMBERS</span><span class="vs" data-venue="comedy">COMEDY</span><span class="vs" data-venue="festival">FESTIVAL</span></div><div class="su-phone"><div class="su-screen"><div class="su-scan"></div><div class="su-state su-ok"><div class="su-band"><span class="su-icon"><i>&#10003;</i></span><b>ADMITTED</b></div><div class="su-guest"><p class="su-nm">Jordan M.</p><p class="su-mt">General admission · 9:42 PM</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div><div class="su-state su-check"><div class="su-band"><span class="su-icon"><i>!</i></span><b>CHECK ID</b></div><div class="su-guest"><p class="su-nm">Sam T.</p><p class="su-mt">Already checked in at 9:31 PM. Ask for ID.</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div><div class="su-state su-deny"><div class="su-band"><span class="su-icon"><i>&#10005;</i></span><b>DENIED</b></div><div class="su-guest"><p class="su-nm">Ticket not recognised</p><p class="su-mt">Not valid for Friday Night Live</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div></div></div></div></div>
       <div class="fx" aria-hidden="true"><div class="fx-door"><i></i><i></i><i></i></div><b class="fx-sign"></b><b class="fx-spill"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b></div>
     </div>
   </div>
@@ -384,5 +384,6 @@
 
 <script src="/js/main.js" defer></script>
 <script src="/js/hero-sound.js" defer></script>
+<script src="/js/hero-venues.js" defer></script>
 </body>
 </html>
