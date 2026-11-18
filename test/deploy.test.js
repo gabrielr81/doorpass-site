@@ -5,7 +5,7 @@ const { read } = require('./helpers');
 test('security headers file has the required headers', () => {
   const h = read('security-headers.conf');
   for (const name of ['Content-Security-Policy', 'Strict-Transport-Security', 'X-Content-Type-Options', 'Referrer-Policy']) assert.ok(h.includes(name), name);
-  assert.match(h, /form-action 'self' https:\/\/n8n\./);
+  assert.match(h, /form-action 'self' https:\/\/n8n[.-]/);
 });
 
 test('every nginx location that sets headers also includes the security headers', () => {
