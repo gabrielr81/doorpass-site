@@ -3,17 +3,162 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DoorPass: event tickets and door check-in that run in the browser</title>
-<meta name="description" content="Sell and send QR tickets, scan guests in with a phone camera, and keep your guest list in your own copy of DoorPass. Hosted for venues under 1,000 capacity, or on your own server.">
+<title>DoorPass: QR Event Ticketing and Door Check-In for Venues</title>
+<meta name="description" content="Event ticketing and door check-in for venues, clubs and promoters. Send QR tickets by email and scan guests with any phone camera. No app, works offline.">
 <meta name="theme-color" content="#0A1128">
 <meta property="og:title" content="DoorPass: event tickets and door check-in that run in the browser">
 <meta property="og:description" content="QR tickets, phone-camera door check-in that works offline, and your own copy of your data.">
 <meta property="og:url" content="https://doorpass.vip/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="DoorPass">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://doorpass.vip/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DoorPass scanner on a phone showing a guest admitted, next to a QR ticket and a VIP door">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DoorPass: QR Event Ticketing and Door Check-In for Venues">
+<meta name="twitter:description" content="QR tickets by email, phone-camera door check-in that works offline, and your own copy of your data.">
+<meta name="twitter:image" content="https://doorpass.vip/assets/og-image.jpg">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://doorpass.vip/">
 <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/styles.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://doorpass.vip/#org",
+   "name": "DoorPass",
+   "url": "https://doorpass.vip/",
+   "logo": "https://doorpass.vip/assets/logo-512.png",
+   "description": "Event ticketing and door check-in system for venues, clubs and event promoters.",
+   "parentOrganization": {
+    "@type": "Organization",
+    "name": "Revenue Copilot"
+   },
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "email": "gabriel@getrevenuecopilot.com",
+    "telephone": "+1-775-313-0714",
+    "areaServed": "US",
+    "availableLanguage": "English"
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://doorpass.vip/#website",
+   "url": "https://doorpass.vip/",
+   "name": "DoorPass",
+   "publisher": {
+    "@id": "https://doorpass.vip/#org"
+   },
+   "inLanguage": "en-US"
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://doorpass.vip/#app",
+   "name": "DoorPass",
+   "url": "https://doorpass.vip/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Event ticketing and door check-in",
+   "operatingSystem": "Web browser on any modern phone, tablet or laptop",
+   "description": "Send QR tickets by email, scan guests in with a phone camera even when the Wi-Fi drops, and keep your guest list in your own copy of DoorPass. Hosted for venues under 1,000 capacity, or on a dedicated server.",
+   "featureList": [
+    "QR tickets by email",
+    "Camera scanning in the browser, no app",
+    "Offline door scanning",
+    "Group orders",
+    "Member photo check-in",
+    "Perks and extras redeemed at the door",
+    "Staff roles with masked guest details",
+    "Guest list export and optional Twenty CRM connection"
+   ],
+   "audience": {
+    "@type": "Audience",
+    "audienceType": "Venues, nightclubs, member clubs and event promoters"
+   },
+   "publisher": {
+    "@id": "https://doorpass.vip/#org"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://doorpass.vip/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is DoorPass?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs and event promoters. Guests get QR tickets by email, and door staff scan them with any phone or laptop camera in the browser, with no app to install. It keeps scanning offline, and each venue gets its own copy of its guest data."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How is DoorPass different from Ticketmaster or Eventbrite?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ticketmaster and Eventbrite are ticket marketplaces: guests buy through the platform's own site and account, often with service fees added at checkout. DoorPass is a ticketing and door system you run as your own venue, on a monthly plan. Guests get tickets from you, your staff scan them with phones you already have, and your guest list stays in your own copy that you can export any time."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What equipment do we need at the door?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A phone or laptop with a camera and a browser for each scanner. A travel router or phone hotspot as a backup connection is a good idea, but offline mode covers short drops."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What happens if the internet goes down during doors?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Open the scanner on Wi-Fi before doors. It then keeps scanning offline and syncs when the connection is back."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Who owns our guest data?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You do. Each venue has its own isolated copy. We don't sell, share or use it, you can export it any time, and we delete it when you leave."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can we use our own CRM?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. DoorPass works fine without one. When you're ready, connect your own Twenty CRM from Settings, or ask us to set it up for you."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How long until we're live?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Hosted venues are usually ready within a day of signing up. Dedicated servers take a few days because we set them up with you."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can we sell tickets online today?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You can run free events, door lists and test-mode checkout today. Card payments with Stripe are coming soon."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -159,6 +304,8 @@
 <section id="faq" class="section section-tint">
   <div class="wrap narrow">
     <h2>Questions venues ask</h2>
+    <details><summary>What is DoorPass?</summary><p>DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs and event promoters. Guests get QR tickets by email, and door staff scan them with any phone or laptop camera in the browser, with no app to install. It keeps scanning offline, and each venue gets its own copy of its guest data.</p></details>
+    <details><summary>How is DoorPass different from Ticketmaster or Eventbrite?</summary><p>Ticketmaster and Eventbrite are ticket marketplaces: guests buy through the platform's own site and account, often with service fees added at checkout. DoorPass is a ticketing and door system you run as your own venue, on a monthly plan. Guests get tickets from you, your staff scan them with phones you already have, and your guest list stays in your own copy that you can export any time.</p></details>
     <details><summary>What equipment do we need at the door?</summary><p>A phone or laptop with a camera and a browser for each scanner. A travel router or phone hotspot as a backup connection is a good idea, but offline mode covers short drops.</p></details>
     <details><summary>What happens if the internet goes down during doors?</summary><p>Open the scanner on Wi-Fi before doors. It then keeps scanning offline and syncs when the connection is back.</p></details>
     <details><summary>Who owns our guest data?</summary><p>You do. Each venue has its own isolated copy. We don't sell, share or use it, you can export it any time, and we delete it when you leave.</p></details>
