@@ -52,3 +52,9 @@ test('terms and privacy exist, are marked draft, privacy has the data sentence',
   assert.ok(privacy.includes('Your data stays yours: your own isolated copy'));
   assert.ok(html.includes('href="/terms.html"') && html.includes('href="/privacy.html"'));
 });
+
+test('hero sound is opt-in: a toggle that starts off, no autoplaying media', () => {
+  assert.match(html, /<button class="sound-toggle" id="hero-sound" type="button" aria-pressed="false" hidden>/);
+  assert.ok(!/<(audio|video)\b[^>]*autoplay/i.test(html));
+  assert.ok(html.includes('<script src="/js/hero-sound.js" defer></script>'));
+});
