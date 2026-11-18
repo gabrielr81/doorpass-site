@@ -1,0 +1,25 @@
+# Runs the DoorPass website behind Hostinger's Traefik. The external network name must match the one
+# the other DoorPass containers on this server use (check with: docker network ls).
+services:
+  doorpass-site:
+    build: .
+    container_name: doorpass-site
+    restart: unless-stopped
+    networks: [web]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=web
+      - traefik.http.routers.doorpass-site.rule=Host(`doorpass.vip`)
+      - traefik.http.routers.doorpass-site.entrypoints=websecure
+      - traefik.http.routers.doorpass-site.tls.certresolver=letsencrypt
+      - traefik.http.routers.doorpass-site-www.rule=Host(`www.doorpass.vip`)
+      - traefik.http.routers.doorpass-site-www.entrypoints=websecure
+      - traefik.http.routers.doorpass-site-www.tls.certresolver=letsencrypt
+      - traefik.http.routers.doorpass-site-www.middlewares=doorpass-www-redirect
+      - traefik.http.middlewares.doorpass-www-redirect.redirectregex.regex=^https://www\.doorpass\.vip/(.*)
+      - traefik.http.middlewares.doorpass-www-redirect.redirectregex.replacement=https://doorpass.vip/$${1}
+      - traefik.http.middlewares.doorpass-www-redirect.redirectregex.permanent=true
+      - traefik.http.services.doorpass-site.loadbalancer.server.port=80
+networks:
+  web:
+    external: true
