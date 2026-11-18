@@ -36,5 +36,5 @@ test('every local asset referenced by index.html exists', () => {
 
 test('hero images are versioned: /assets is cached for a year, so a changed image needs a new file name', () => {
   const html = readSite('index.html');
-  for (const m of html.matchAll(/\/assets\/hero\/(front[^" ]*?)\.webp/g)) assert.match(m[1], /-v\d+$/, `${m[1]} should carry a -vN suffix`);
+  for (const m of html.matchAll(/\/assets\/hero\/((?:front|back)[^" ]*?)\.webp/g)) assert.match(m[1], /-v\d+$/, `${m[1]} should carry a -vN suffix`);
 });
