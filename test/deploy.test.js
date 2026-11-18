@@ -15,7 +15,12 @@ test('every nginx location that sets headers also includes the security headers'
   }
 });
 
-test('/go redirects to the home page (the logo QR opens it)', () => assert.match(read('nginx.conf'), /location = \/go \{ return 302 \/; \}/));
+test('/go in any letter case redirects to the home page (the logo QR opens /GO)', () => {
+  const m = read('nginx.conf').match(/location (~\*) \^\/go\/\?\$ \{ return 302 \/; \}/);
+  assert.ok(m, 'expected a case-insensitive /go location');
+  const re = /^\/go\/?$/i;
+  for (const path of ['/go', '/GO', '/Go', '/go/']) assert.ok(re.test(path), path);
+});
 
 test('compose serves the apex domain and redirects www', () => {
   const c = read('docker-compose.yml');
