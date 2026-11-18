@@ -1,7 +1,7 @@
 # DoorPass website on the Hostinger VPS (static nginx behind the server's Traefik).
 # Traefik runs in host network mode here, so there is no external "web" network.
-# On every start the container downloads the newest commit of branch main from the private repo
-# gabrielr81/doorpass-site with a read-only GH_TOKEN. To update the site: push to main, then restart this project.
+# On every start the container downloads the newest commit of branch main from the public repo
+# gabrielr81/doorpass-site (no token needed). To update the site: push to main, then restart this project.
 # If a download fails, the previous copy keeps serving.
 services:
   doorpass-site:
@@ -12,12 +12,11 @@ services:
       - -c
       - |
         R=https://api.github.com/repos/gabrielr81/doorpass-site
-        H="Authorization: Bearer $$GH_TOKEN"
-        REF=$$(wget -qO- --header="$$H" --header="Accept: application/vnd.github.sha" "$$R/commits/main" || true)
+        REF=$$(wget -qO- --header="Accept: application/vnd.github.sha" "$$R/commits/main" || true)
         mkdir -p /site
         if [ -n "$$REF" ] && [ ! -f /site/.ref-$$REF ]; then
           rm -rf /tmp/new; mkdir -p /tmp/new
-          if wget -qO /tmp/s.tgz --header="$$H" "$$R/tarball/$$REF" && tar -xzf /tmp/s.tgz -C /tmp/new --strip-components=1 \
+          if wget -qO /tmp/s.tgz "$$R/tarball/$$REF" && tar -xzf /tmp/s.tgz -C /tmp/new --strip-components=1 \
              && [ -f /tmp/new/public/index.html ] && [ -f /tmp/new/nginx.conf ] && [ -f /tmp/new/security-headers.conf ]; then
             rm -rf /site/public; cp -r /tmp/new/public /site/public
             cp /tmp/new/nginx.conf /site/nginx.conf
@@ -32,8 +31,6 @@ services:
         cp /site/security-headers.conf /etc/nginx/security-headers.conf
         rm -rf /usr/share/nginx/html; ln -s /site/public /usr/share/nginx/html
         exec nginx -g 'daemon off;'
-    environment:
-      - GH_TOKEN=${GH_TOKEN}
     volumes:
       - doorpass-site-files:/site
     labels:
