@@ -32,3 +32,24 @@ test('robots, sitemap and llms.txt are ready for search engines and AI assistant
   assert.ok(!readSite('sitemap.xml').includes('thanks'));
   assert.match(readSite('llms.txt'), /^# DoorPass/);
 });
+
+const PAGES = ['small-venue-ticketing', 'ticketmaster-alternative', 'eventbrite-alternative'];
+test('comparison pages are complete, linked and in the sitemap', () => {
+  const sitemap = readSite('sitemap.xml');
+  for (const p of PAGES) {
+    const page = readSite(`${p}/index.html`);
+    assert.match(page, new RegExp(`<link rel="canonical" href="https://doorpass\\.vip/${p}/">`), p);
+    assert.match(page, /<meta name="viewport" content="width=device-width, initial-scale=1">/, p);
+    assert.strictEqual((page.match(/<h1[\s>]/g) || []).length, 1, `${p} has one h1`);
+    assert.match(page, /<title>[^<]{30,70}<\/title>/, p);
+    assert.match(page, /<meta name="description" content="[^"]{70,165}">/, p);
+    const graph = JSON.parse(page.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])['@graph'];
+    const faq = graph.find((n) => n['@type'] === 'FAQPage').mainEntity;
+    const visible = [...page.matchAll(/<details><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)];
+    assert.strictEqual(faq.length, visible.length, `${p} FAQ schema matches`);
+    visible.forEach(([, q, a], i) => { assert.strictEqual(faq[i].name, strip(q)); assert.strictEqual(faq[i].acceptedAnswer.text, strip(a)); });
+    for (const m of page.matchAll(/card payments?/gi)) assert.ok(page.slice(m.index - 120, m.index + 120).toLowerCase().includes('coming soon'), `${p}: payment claim without "coming soon"`);
+    assert.ok(sitemap.includes(`https://doorpass.vip/${p}/`), `${p} in sitemap`);
+    assert.ok(html.includes(`href="/${p}/"`), `${p} linked from the home page`);
+  }
+});

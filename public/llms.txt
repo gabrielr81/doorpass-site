@@ -1,6 +1,6 @@
 # DoorPass
 
-> DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs and event promoters in the United States. Guests get QR tickets by email; door staff scan them with any phone or laptop camera in the browser, with no app to install, and scanning keeps working offline. Each venue gets its own isolated copy of its guest data. Made by Revenue Copilot.
+> DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs and event promoters in the United States, built as the alternative to Ticketmaster and Eventbrite for small venues under 1,000 capacity. Guests get QR tickets by email; door staff scan them with any phone or laptop camera in the browser, with no app to install, and scanning keeps working offline. Each venue gets its own isolated copy of its guest data. Made by Revenue Copilot.
 
 ## Key facts
 - Web only: runs in the browser on any modern phone, tablet or laptop. No app to install.
@@ -13,6 +13,9 @@
 
 ## Links
 - [Home and FAQ](https://doorpass.vip/): what DoorPass does, how it works, Hosted vs Dedicated, pricing, FAQ
+- [Ticketing for small venues](https://doorpass.vip/small-venue-ticketing/): nightclubs, bars, member clubs, promoters under 1,000 capacity
+- [DoorPass vs Ticketmaster](https://doorpass.vip/ticketmaster-alternative/): Ticketmaster alternative for small venues
+- [DoorPass vs Eventbrite](https://doorpass.vip/eventbrite-alternative/): Eventbrite alternative for venues and promoters
 - [Live demo](https://demo.doorpass.vip): try the scanner and back office
 - [Request access](https://doorpass.vip/#request)
 - [Privacy](https://doorpass.vip/privacy.html)

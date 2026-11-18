@@ -201,7 +201,7 @@ input:user-invalid, select:user-invalid { border-color: var(--orange); }
 .foot { display: grid; gap: 1.75rem; }
 .foot-brand { display: grid; gap: .8rem; }
 .site-footer a { color: var(--white); }
-@media (min-width: 48rem) { .foot { grid-template-columns: 1.4fr 1fr 1fr; align-items: start; } }
+@media (min-width: 48rem) { .foot { grid-template-columns: 1.4fr 1fr 1fr 1fr; align-items: start; } }
 
 /* Plain pages (terms, privacy, thanks) */
 .doc { padding-block: var(--section-y); }
@@ -211,3 +211,28 @@ input:user-invalid, select:user-invalid { border-color: var(--orange); }
 .doc p, .doc li { color: var(--navy); margin-bottom: .8rem; }
 .doc ul { list-style: disc; padding-left: 1.3rem; }
 .draft { background: var(--tint); border-left: 6px solid var(--orange); padding: 1rem 1.25rem; margin-bottom: 2rem; font-weight: 700; }
+
+/* Comparison and use-case pages */
+.page-hero { min-height: 0; }
+@media (min-width: 60rem) { .page-hero { min-height: 0; display: block; } }
+.page-hero .hero-copy > * { max-width: 46rem; }
+.crumbs { font-size: .9rem; color: var(--muted-on-navy); }
+.crumbs a { color: var(--white); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.compare-wrap { overflow-x: auto; border-top: 3px solid var(--navy); }
+.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-size: 1rem; }
+.compare th, .compare td { text-align: left; vertical-align: top; padding: 1rem .9rem; border-bottom: 1px solid var(--tint); }
+.compare thead th { font-size: 1.05rem; background: var(--navy); color: var(--white); }
+.compare thead th:nth-child(2) { background: var(--orange); color: var(--navy); }
+.compare tbody th { width: 18%; font-weight: 700; }
+.compare td:nth-child(2) { background: var(--tint); }
+.ticks { display: grid; gap: 1rem; padding: 0; list-style: none; }
+.ticks li { border-left: 3px solid var(--orange); padding-left: 1rem; color: var(--muted-on-navy); }
+.ticks strong { color: var(--white); }
+.usecases { display: grid; gap: 1.5rem; padding: 0; list-style: none; }
+.usecases li { border-top: 3px solid var(--navy); padding-top: 1.1rem; display: grid; gap: .6rem; align-content: start; }
+.usecases p { color: var(--muted); }
+@media (min-width: 48rem) { .usecases { grid-template-columns: repeat(2, 1fr); } }
+.links { display: grid; gap: .75rem; padding: 0; list-style: none; font-weight: 700; font-size: 1.15rem; }
+.sources { font-size: .9rem; color: var(--muted); margin-top: 1.5rem; }
+.cta-band { display: grid; gap: 1.4rem; justify-items: start; }
