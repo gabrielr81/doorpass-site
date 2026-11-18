@@ -33,3 +33,8 @@ test('every local asset referenced by index.html exists', () => {
     assert.ok(fs.existsSync(path.join(root, 'public', m[1])), m[1]);
   }
 });
+
+test('hero images are versioned: /assets is cached for a year, so a changed image needs a new file name', () => {
+  const html = readSite('index.html');
+  for (const m of html.matchAll(/\/assets\/hero\/(front[^" ]*?)\.webp/g)) assert.match(m[1], /-v\d+$/, `${m[1]} should carry a -vN suffix`);
+});
