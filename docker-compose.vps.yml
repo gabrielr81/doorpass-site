@@ -1,0 +1,56 @@
+# DoorPass website on the Hostinger VPS (static nginx behind the server's Traefik).
+# Traefik runs in host network mode here, so there is no external "web" network.
+# On every start the container downloads the newest commit of branch main from the private repo
+# gabrielr81/doorpass-site with a read-only GH_TOKEN. To update the site: push to main, then restart this project.
+# If a download fails, the previous copy keeps serving.
+services:
+  doorpass-site:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    command:
+      - sh
+      - -c
+      - |
+        R=https://api.github.com/repos/gabrielr81/doorpass-site
+        H="Authorization: Bearer $$GH_TOKEN"
+        REF=$$(wget -qO- --header="$$H" --header="Accept: application/vnd.github.sha" "$$R/commits/main" || true)
+        mkdir -p /site
+        if [ -n "$$REF" ] && [ ! -f /site/.ref-$$REF ]; then
+          rm -rf /tmp/new; mkdir -p /tmp/new
+          if wget -qO /tmp/s.tgz --header="$$H" "$$R/tarball/$$REF" && tar -xzf /tmp/s.tgz -C /tmp/new --strip-components=1 \
+             && [ -f /tmp/new/public/index.html ] && [ -f /tmp/new/nginx.conf ] && [ -f /tmp/new/security-headers.conf ]; then
+            rm -rf /site/public; cp -r /tmp/new/public /site/public
+            cp /tmp/new/nginx.conf /site/nginx.conf
+            cp /tmp/new/security-headers.conf /site/security-headers.conf
+            rm -f /site/.ref-*; touch /site/.ref-$$REF
+            echo "deployed $$REF"
+          else
+            echo "UPDATE FAILED for $$REF - keeping previous site"
+          fi
+        fi
+        cp /site/nginx.conf /etc/nginx/conf.d/default.conf
+        cp /site/security-headers.conf /etc/nginx/security-headers.conf
+        rm -rf /usr/share/nginx/html; ln -s /site/public /usr/share/nginx/html
+        exec nginx -g 'daemon off;'
+    environment:
+      - GH_TOKEN=${GH_TOKEN}
+    volumes:
+      - doorpass-site-files:/site
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.doorpass-site.rule=Host(`doorpass.vip`)
+      - traefik.http.routers.doorpass-site.entrypoints=websecure
+      - traefik.http.routers.doorpass-site.tls.certresolver=letsencrypt
+      - traefik.http.routers.doorpass-site.service=doorpass-site
+      - traefik.http.routers.doorpass-site-www.rule=Host(`www.doorpass.vip`)
+      - traefik.http.routers.doorpass-site-www.entrypoints=websecure
+      - traefik.http.routers.doorpass-site-www.tls.certresolver=letsencrypt
+      - traefik.http.routers.doorpass-site-www.middlewares=doorpass-www-redirect
+      - traefik.http.routers.doorpass-site-www.service=doorpass-site
+      - traefik.http.middlewares.doorpass-www-redirect.redirectregex.regex=^https://www\.doorpass\.vip/(.*)
+      - traefik.http.middlewares.doorpass-www-redirect.redirectregex.replacement=https://doorpass.vip/$${1}
+      - traefik.http.middlewares.doorpass-www-redirect.redirectregex.permanent=true
+      - traefik.http.services.doorpass-site.loadbalancer.server.port=80
+
+volumes:
+  doorpass-site-files:
