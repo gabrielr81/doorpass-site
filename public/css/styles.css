@@ -37,8 +37,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .skip:focus { left: 0; }
 
 .wrap { width: min(100% - 2 * var(--gap), 72rem); margin-inline: auto; }
-.narrow { max-width: 46rem; margin-inline: 0; }
-.wrap.narrow { width: min(100% - 2 * var(--gap), 46rem); margin-inline: auto; }
+.narrow > * { max-width: 46rem; }
 
 /* Header */
 .site-header { position: sticky; top: 0; z-index: 10; background: var(--navy); border-bottom: 1px solid var(--navy-line); color: var(--white); }
