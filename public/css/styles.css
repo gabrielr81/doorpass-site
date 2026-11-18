@@ -158,6 +158,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .su-art { --u: .069444cqw; position: absolute; left: 0; top: 0; width: calc(1440 * var(--u)); height: calc(800 * var(--u)); transform: scale(.84); transform-origin: calc(1440 * var(--u)) calc(496 * var(--u)); }
 .su-phone { position: absolute; left: calc(770 * var(--u)); top: calc(150 * var(--u)); width: calc(300 * var(--u)); height: calc(612 * var(--u)); transform: rotate(-7deg); }
 .su-screen { position: absolute; left: calc(12 * var(--u)); top: calc(12 * var(--u)); width: calc(276 * var(--u)); height: calc(588 * var(--u)); }
+/* Scan line sweeping over the ticket QR in the camera view: down and back up once per 3.5 s result */
+.su-scan { position: absolute; left: calc(42 * var(--u)); top: calc(158 * var(--u)); width: calc(192 * var(--u)); height: calc(3 * var(--u)); background: var(--white); box-shadow: 0 0 calc(14 * var(--u)) calc(4 * var(--u)) rgba(242, 85, 63, .9); animation: su-sweep 1.75s ease-in-out infinite alternate; }
+@keyframes su-sweep { from { transform: translateY(0); } to { transform: translateY(calc(124 * var(--u))); } }
 .su-state { position: absolute; left: calc(14 * var(--u)); top: calc(363 * var(--u)); width: calc(248 * var(--u)); opacity: 0; animation: su-cycle 10.5s infinite; }
 .su-check { animation-delay: 3.5s; } .su-deny { animation-delay: 7s; }
 .su-band { display: flex; align-items: center; gap: calc(10 * var(--u)); height: calc(54 * var(--u)); padding: 0 calc(14 * var(--u)); color: var(--white); }
@@ -174,7 +177,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .su-cnt { display: flex; justify-content: space-between; margin-top: calc(6 * var(--u)) !important; font: 700 calc(11 * var(--u))/1.2 var(--font); }
 .su-cnt span { font-weight: 400; color: var(--muted); }
 @keyframes su-cycle { 0% { opacity: 0; transform: scale(.96); } 3% { opacity: 1; transform: scale(1.03); } 6%, 30.5% { opacity: 1; transform: scale(1); } 33.3%, 100% { opacity: 0; transform: scale(1); } }
-@media (prefers-reduced-motion: reduce) { .fx { display: none; } .venue * { animation: none !important; } .su-state { animation: none; } .su-ok { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .fx { display: none; } .venue * { animation: none !important; } .su-state { animation: none; } .su-ok { opacity: 1; } .su-scan { animation: none; transform: translateY(calc(62 * var(--u))); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 /* Sections */
