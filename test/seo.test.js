@@ -33,8 +33,8 @@ test('robots, sitemap and llms.txt are ready for search engines and AI assistant
   assert.match(readSite('llms.txt'), /^# DoorPass/);
 });
 
-const HUBBED = ['tixr-alternative', 'shotgun-alternative', 'etix-alternative', 'ticketleap-alternative', 'simpletix-alternative', 'luma-alternative'];
-const PAGES = ['small-venue-ticketing', 'ticketmaster-alternative', 'eventbrite-alternative', 'posh-alternative', 'dice-alternative', 'ticket-tailor-alternative', 'universe-alternative', 'ticketing-alternatives', ...HUBBED, 'how-to-check-in-guests-with-qr-codes', 'how-to-run-a-door-list-offline', 'how-to-stop-ticket-sharing-at-the-door'];
+const HUBBED = ['tixr-alternative', 'shotgun-alternative', 'etix-alternative', 'ticketleap-alternative', 'simpletix-alternative', 'luma-alternative', 'axs-alternative', 'showclix-alternative'];
+const PAGES = ['small-venue-ticketing', 'ticketmaster-alternative', 'eventbrite-alternative', 'posh-alternative', 'dice-alternative', 'ticket-tailor-alternative', 'universe-alternative', 'ticketing-alternatives', ...HUBBED, 'how-to-check-in-members-with-photos', 'how-to-sell-group-tickets-and-tables', 'how-to-redeem-drink-perks-at-the-bar', 'how-to-check-in-guests-with-qr-codes', 'how-to-run-a-door-list-offline', 'how-to-stop-ticket-sharing-at-the-door'];
 test('comparison pages are complete, linked and in the sitemap', () => {
   const sitemap = readSite('sitemap.xml');
   for (const p of PAGES) {
