@@ -33,7 +33,7 @@ test('robots, sitemap and llms.txt are ready for search engines and AI assistant
   assert.match(readSite('llms.txt'), /^# DoorPass/);
 });
 
-const PAGES = ['small-venue-ticketing', 'ticketmaster-alternative', 'eventbrite-alternative', 'posh-alternative', 'dice-alternative', 'ticket-tailor-alternative', 'universe-alternative'];
+const PAGES = ['small-venue-ticketing', 'ticketmaster-alternative', 'eventbrite-alternative', 'posh-alternative', 'dice-alternative', 'ticket-tailor-alternative', 'universe-alternative', 'how-to-check-in-guests-with-qr-codes', 'how-to-run-a-door-list-offline', 'how-to-stop-ticket-sharing-at-the-door'];
 test('comparison pages are complete, linked and in the sitemap', () => {
   const sitemap = readSite('sitemap.xml');
   for (const p of PAGES) {
