@@ -33,7 +33,8 @@ test('robots, sitemap and llms.txt are ready for search engines and AI assistant
   assert.match(readSite('llms.txt'), /^# DoorPass/);
 });
 
-const PAGES = ['small-venue-ticketing', 'ticketmaster-alternative', 'eventbrite-alternative', 'posh-alternative', 'dice-alternative', 'ticket-tailor-alternative', 'universe-alternative', 'how-to-check-in-guests-with-qr-codes', 'how-to-run-a-door-list-offline', 'how-to-stop-ticket-sharing-at-the-door'];
+const HUBBED = ['tixr-alternative', 'shotgun-alternative', 'etix-alternative', 'ticketleap-alternative', 'simpletix-alternative', 'luma-alternative'];
+const PAGES = ['small-venue-ticketing', 'ticketmaster-alternative', 'eventbrite-alternative', 'posh-alternative', 'dice-alternative', 'ticket-tailor-alternative', 'universe-alternative', 'ticketing-alternatives', ...HUBBED, 'how-to-check-in-guests-with-qr-codes', 'how-to-run-a-door-list-offline', 'how-to-stop-ticket-sharing-at-the-door'];
 test('comparison pages are complete, linked and in the sitemap', () => {
   const sitemap = readSite('sitemap.xml');
   for (const p of PAGES) {
@@ -50,6 +51,6 @@ test('comparison pages are complete, linked and in the sitemap', () => {
     visible.forEach(([, q, a], i) => { assert.strictEqual(faq[i].name, strip(q)); assert.strictEqual(faq[i].acceptedAnswer.text, strip(a)); });
     for (const m of page.matchAll(/card payments?/gi)) assert.ok(page.slice(m.index - 120, m.index + 120).toLowerCase().includes('coming soon'), `${p}: payment claim without "coming soon"`);
     assert.ok(sitemap.includes(`https://doorpass.vip/${p}/`), `${p} in sitemap`);
-    assert.ok(html.includes(`href="/${p}/"`), `${p} linked from the home page`);
+    assert.ok((HUBBED.includes(p) ? readSite('ticketing-alternatives/index.html') : html).includes(`href="/${p}/"`), `${p} linked from the home page or the hub`);
   }
 });
