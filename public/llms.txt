@@ -15,6 +15,9 @@
 - [Home and FAQ](https://doorpass.vip/): what DoorPass does, how it works, Hosted vs Dedicated, pricing, FAQ
 - [Ticketing for small venues](https://doorpass.vip/small-venue-ticketing/): nightclubs, bars, member clubs, promoters under 1,000 capacity
 - [DoorPass vs Ticketmaster](https://doorpass.vip/ticketmaster-alternative/): Ticketmaster alternative for small venues
+- [DoorPass vs Posh](https://doorpass.vip/posh-alternative/): Posh alternative for clubs and small venues
+- [DoorPass vs DICE](https://doorpass.vip/dice-alternative/): DICE alternative with no app
+- [DoorPass vs Ticket Tailor](https://doorpass.vip/ticket-tailor-alternative/): Ticket Tailor alternative with door check-in built in
 - [DoorPass vs Eventbrite](https://doorpass.vip/eventbrite-alternative/): Eventbrite alternative for venues and promoters
 - [Live demo](https://demo.doorpass.vip): try the scanner and back office
 - [Request access](https://doorpass.vip/#request)
