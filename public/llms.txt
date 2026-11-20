@@ -18,6 +18,7 @@
 - [DoorPass vs Posh](https://doorpass.vip/posh-alternative/): Posh alternative for clubs and small venues
 - [DoorPass vs DICE](https://doorpass.vip/dice-alternative/): DICE alternative with no app
 - [DoorPass vs Ticket Tailor](https://doorpass.vip/ticket-tailor-alternative/): Ticket Tailor alternative with door check-in built in
+- [DoorPass vs Universe](https://doorpass.vip/universe-alternative/): Universe alternative for clubs and small venues
 - [DoorPass vs Eventbrite](https://doorpass.vip/eventbrite-alternative/): Eventbrite alternative for venues and promoters
 - [Live demo](https://demo.doorpass.vip): try the scanner and back office
 - [Request access](https://doorpass.vip/#request)
