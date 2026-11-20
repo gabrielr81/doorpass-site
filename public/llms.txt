@@ -19,6 +19,9 @@
 - [DoorPass vs DICE](https://doorpass.vip/dice-alternative/): DICE alternative with no app
 - [DoorPass vs Ticket Tailor](https://doorpass.vip/ticket-tailor-alternative/): Ticket Tailor alternative with door check-in built in
 - [DoorPass vs Universe](https://doorpass.vip/universe-alternative/): Universe alternative for clubs and small venues
+- [How to: check in guests with QR codes](https://doorpass.vip/how-to-check-in-guests-with-qr-codes/)
+- [How to: run a door list offline](https://doorpass.vip/how-to-run-a-door-list-offline/)
+- [How to: stop ticket sharing at the door](https://doorpass.vip/how-to-stop-ticket-sharing-at-the-door/)
 - [DoorPass vs Eventbrite](https://doorpass.vip/eventbrite-alternative/): Eventbrite alternative for venues and promoters
 - [Live demo](https://demo.doorpass.vip): try the scanner and back office
 - [Request access](https://doorpass.vip/#request)
