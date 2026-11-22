@@ -3,7 +3,7 @@ const assert = require('node:assert');
 const { readSite } = require('./helpers');
 
 const html = readSite('index.html');
-const DATA_SENTENCE = "Your data stays yours: your own isolated copy, we don't sell, share or use it, you can export or send it to your CRM any time, and we delete it when you leave.";
+const DATA_SENTENCE = "Your data stays yours: your own isolated copy, we don't sell or share it, you can export or send it to your CRM any time, and we delete it when you leave.";
 
 test('has all sections', () => {
   for (const id of ['hero', 'how', 'features', 'offers', 'data', 'pricing', 'faq', 'request']) {
