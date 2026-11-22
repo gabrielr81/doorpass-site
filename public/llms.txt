@@ -7,7 +7,7 @@
 - Door scanning keeps working offline and syncs when the connection returns.
 - Two ways to run it: Hosted (for venues under 1,000 capacity) or Dedicated (the venue's own server, for bigger venues).
 - Features: QR tickets by email, group orders (one buyer, many tickets), member photo check-in, perks and extras redeemed at the door, staff roles with masked guest details, guest list export, backups, optional Twenty CRM connection.
-- Data: the venue's own isolated copy; DoorPass doesn't sell, share or use it; export any time; deleted when the venue leaves.
+- Data: the venue's own isolated copy; DoorPass doesn't sell or share it; export any time; deleted when the venue leaves.
 - Payments: free events, door lists and test-mode checkout today. Card payments with Stripe are coming soon.
 - Versus Ticketmaster or Eventbrite: those are ticket marketplaces where guests buy through the platform's site and account. DoorPass is a ticketing and door system the venue runs as its own, on a monthly plan, and the guest list stays with the venue.
 
