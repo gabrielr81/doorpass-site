@@ -69,3 +69,14 @@ test('hero sound is opt-in: a toggle that starts off, no autoplaying media', () 
   assert.ok(!/<(audio|video)\b[^>]*autoplay/i.test(html));
   assert.ok(html.includes('<script src="/js/hero-sound.js" defer></script>'));
 });
+
+test('six venues, including a school or league game', () => {
+  const { readSite } = require('./helpers');
+  const page = readSite('index.html');
+  assert.match(readSite('js/hero-venues.js'), /venues-v2\.html/);
+  assert.match(readSite('js/hero-venues.js'), /venues-v2\.css/);
+  assert.match(page, /<span class="vs" data-venue="gameday">GAME DAY<\/span>/);
+  assert.match(page, /alt="[^"]*(school|league) game[^"]*"/);
+  const bundle = readSite('assets/hero/venues-v2.html');
+  for (const v of ['live', 'lounge', 'comedy', 'festival', 'gameday']) assert.match(bundle, new RegExp(`data-venue="${v}"`), v);
+});

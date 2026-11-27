@@ -172,6 +172,52 @@ def festival():
     shoulders=fig(150,262,.6, crowd_arm('v','r')+crowd_arm('v','l')+torso('long'),.8,'p d2')
     return scene('festival', bg+stars+lasers+stage+performer+lights+shoulders+flag+f'<g class="crowd">{c}</g>', defs)
 
+# ---------------- GAME DAY (school and league sports, not a pro stadium) ----------------
+def gameday():
+    defs=('<linearGradient id="gsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0A1128"/><stop offset="1" stop-color="#1D2750"/></linearGradient>'
+          '<linearGradient id="gbeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".5"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>'
+          '<radialGradient id="gfield"><stop offset="0" stop-color="#2E5A4A"/><stop offset="1" stop-color="#173A33"/></radialGradient>')
+    bg='<rect width="300" height="604" fill="url(#gsky)"/>'
+    # four light towers: two near, two far, each with a bank of lamps and a soft beam onto the field
+    def tower(x,top,h,s,i):
+        bank=''.join(f'<circle cx="{x-9*s+c*6*s:.1f}" cy="{top+4*s+r*6*s:.1f}" r="{2.1*s:.1f}" fill="{W}"/>' for r in range(2) for c in range(4))
+        beam=f'<path class="gbeam b{i}" d="M{x-14*s:.1f} {top+12*s:.1f}L{x+14*s:.1f} {top+12*s:.1f}L{150+(x-150)*.25+40:.1f} 292L{150+(x-150)*.25-40:.1f} 292Z" fill="url(#gbeam)" opacity=".35"/>'
+        return beam+f'<rect x="{x-1.5*s:.1f}" y="{top:.1f}" width="{3*s:.1f}" height="{h:.1f}" fill="{N}"/><rect x="{x-12*s:.1f}" y="{top:.1f}" width="{24*s:.1f}" height="{13*s:.1f}" fill="{N}"/>'+bank
+    towers=tower(78,96,150,.75,2)+tower(222,96,150,.75,3)+tower(26,36,230,1,0)+tower(274,36,230,1,1)
+    CSS.append('.venue .gbeam { animation: screen 2s ease-in-out infinite alternate; } .venue .gbeam.b1 { animation-delay: -.5s; } .venue .gbeam.b2 { animation-delay: -1s; } .venue .gbeam.b3 { animation-delay: -1.5s; }')
+    # small scoreboard (a school one, not a jumbotron)
+    board=(f'<rect x="118" y="112" width="64" height="30" fill="{N}" stroke="{O}" stroke-width="1"/><rect x="148.5" y="142" width="3" height="40" fill="{N}"/>'
+           f'<text x="134" y="122" font-size="6" fill="{W}" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="700">HOME</text>'
+           f'<text x="166" y="122" font-size="6" fill="{W}" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="700">GUEST</text>'
+           f'<text x="134" y="137" font-size="12" fill="{O}" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="700">14</text>'
+           f'<text x="166" y="137" font-size="12" fill="{O}" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="700">7</text>')
+    # the field, lit from the towers, with a few yard lines
+    field=f'<path d="M30 212H270L318 300H-18Z" fill="url(#gfield)"/>'+''.join(f'<path d="M{150+(t-150)*.8:.1f} 212L{150+(t-150)*1.4:.1f} 300" stroke="{W}" stroke-width=".8" opacity=".35"/>' for t in (60,105,150,195,240))
+    # two players passing a ball
+    pA=fig(100,232,.26, jarm('gpa',(19,47),(34,22),(44,6))+torso('short',True),cls='gp')
+    pB=fig(200,232,.26, jarm('gpb',(19,47),(34,22),(44,6))+torso('cap',True),cls='gp',sx=-1)
+    CSS.append('.venue .gpa-u, .venue .gpb-u { animation: throw 2s ease-in-out infinite; } .venue .gpb-u { animation-delay: -1s; } .venue .gpa-f, .venue .gpb-f { animation: none; }')
+    ball=f'<g class="ballx"><g class="bally"><ellipse cx="111" cy="236" rx="2.8" ry="1.9" fill="{O}"/></g></g>'
+    CSS.append('.venue .ballx { animation: ballx 1s ease-in-out infinite alternate; } .venue .bally { animation: bally .5s ease-out infinite alternate; }')
+    # concession stand at the end of the bleachers
+    stand=(f'<rect x="238" y="256" width="58" height="40" fill="{N}"/><rect x="244" y="268" width="46" height="16" fill="{O}" opacity=".55"/>'
+           + ''.join(f'<rect x="{236+i*8.75:.1f}" y="250" width="8.75" height="8" fill="{O if i%2 else W}"/>' for i in range(7))
+           + f'<text x="267" y="279" font-size="7" fill="{W}" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="700">SNACKS</text>')
+    # bleachers, fans doing the wave on the 120 BPM grid (4 s, two bars), left to right
+    rnd=random.Random(21); fans=[]
+    rows=[(10,6,30,330,.5,.6),(7,0,44,392,.72,.8),(5,-4,66,470,.98,1)]
+    for r,(n,start,step,y0,sc,op) in enumerate(rows):
+        bench=f'<rect x="-10" y="{y0+sc*104:.1f}" width="320" height="{6*sc:.1f}" fill="{LIFT}"/><rect x="-10" y="{y0+sc*104:.1f}" width="320" height="1" fill="{O}" opacity=".5"/>'
+        fans.append(bench)
+        for i in range(n):
+            x=start+i*step+rnd.uniform(-3,3); y=y0+rnd.uniform(-3,3)
+            w=min(7,int(max(0,x)/300*8))
+            pose=rnd.choice([[('v','r'),('v','l')],[('up','r'),('up','l')],[('pump','r')],[('phone','r')]])
+            arms=''.join(crowd_arm(p,sd) for p,sd in pose)
+            fans.append(fig(x,y,sc*rnd.uniform(.95,1.05),arms+torso(rnd.choice(list(HAIR)),True),op,f'fan w{w} d{rnd.randint(1,4)}',rnd.uniform(.9,1.1)))
+    CSS.append('.venue .fan { transform-box: fill-box; transform-origin: 50% 100%; animation: wave 4s infinite; }' + ''.join(f' .venue .fan.w{k} {{ animation-delay: {-4+k*.25:.2f}s; }}' for k in range(8)))
+    return scene('gameday', bg+towers+board+field+pA+pB+ball+stand+''.join(fans), defs)
+
 KEYS='''@keyframes spot { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
 @keyframes hit { from { transform: rotate(-10deg); } to { transform: rotate(16deg); } }
 @keyframes cym { 0% { transform: rotate(-8deg); } 30% { transform: rotate(6deg); } 100% { transform: rotate(0); } }
@@ -189,10 +235,18 @@ KEYS='''@keyframes spot { from { transform: rotate(-14deg); } to { transform: ro
 @keyframes bulb { from { opacity: 1; } to { opacity: .35; } }
 @keyframes screen { from { opacity: .75; } to { opacity: 1; } }
 @keyframes laser { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
-@keyframes flag { from { transform: skewY(-6deg) scaleX(.94); } to { transform: skewY(6deg) scaleX(1); } }'''
+@keyframes flag { from { transform: skewY(-6deg) scaleX(.94); } to { transform: skewY(6deg) scaleX(1); } }
+@keyframes throw { 0%, 40%, 100% { transform: rotate(0); } 15% { transform: rotate(28deg); } 25% { transform: rotate(-34deg); } }
+@keyframes ballx { from { transform: translateX(0); } to { transform: translateX(78px); } }
+@keyframes bally { from { transform: translateY(0); } to { transform: translateY(-22px); } }
+@keyframes wave { 0%, 60%, 100% { transform: translateY(0) scaleY(1); } 12% { transform: translateY(-10px) scaleY(1.04); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 30% { transform: translateY(-14px) scaleY(1.05); } 48% { transform: translateY(0) scaleY(1); } }'''
 
 if __name__=='__main__':
-    svgs={'live':live(),'lounge':lounge(),'comedy':comedy(),'festival':festival()}
-    import json; json.dump(svgs, open('/home/claude/hero/venues.json','w'))
-    open('/home/claude/hero/venues.css','w').write('\n'.join(CSS)+'\n'+KEYS+'\n')
-    print({k:len(v) for k,v in svgs.items()}, len(CSS))
+    # Writes the bundle that hero-venues.js loads: venues-vN.html (all scenes but the club) and venues-vN.css (deduped).
+    out=sys.argv[1] if len(sys.argv)>1 else '/home/claude/hero/venues-v2'
+    svgs={'live':live(),'lounge':lounge(),'comedy':comedy(),'festival':festival(),'gameday':gameday()}
+    open(out+'.html','w').write(''.join(svgs.values())+'\n')
+    seen=[]; [seen.append(r) for r in CSS if r not in seen]
+    name=out.rsplit('/',1)[-1]
+    open(out+'.css','w').write(f'/* DoorPass hero: animations for the concert, members lounge, comedy, festival and game day venues (loaded with {name}.html). Generated by tools/hero/venues.py. */\n'+'\n'.join(seen)+'\n'+KEYS+'\n')
+    print({k:len(v) for k,v in svgs.items()}, len(seen))
