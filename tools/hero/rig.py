@@ -74,9 +74,9 @@ def crowd_arms(pose, moving=True):
 
 
 def level(s):
-    """How much of a figure moves, by row. Back rows (small) only bounce; the middle row adds torso and arms;
-    the front row adds head and knees. Every moving joint is work for the phone, so detail goes where it shows."""
-    return 0 if s < .5 else 2 if s >= .9 else 1
+    """How much of a figure moves, by row. Back and middle rows only bounce; the front row, which is big enough to
+    see, gets torso, arms, head and knees. Every moving joint is work for the phone, and page speed comes first."""
+    return 2 if s >= .9 else 0
 
 
 def person(x, y, s, sx, op, root, hair, pose=None, arms='', has_legs=True):
