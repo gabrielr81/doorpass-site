@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DoorPass: QR Event Ticketing and Door Check-In for Venues</title>
-<meta name="description" content="Event ticketing and door check-in for venues, clubs and promoters. Send QR tickets by email and scan guests with any phone camera. No app, works offline.">
+<meta name="description" content="Ticketing and door check-in for venues, clubs, promoters and local leagues. Flat $99 a month, no per-ticket fees, your own Stripe. Scan with any phone.">
 <meta name="theme-color" content="#0A1128">
 <meta property="og:title" content="DoorPass: event tickets and door check-in that run in the browser">
 <meta property="og:description" content="QR tickets, phone-camera door check-in that works offline, and your own copy of your data.">
@@ -67,7 +67,7 @@
    "applicationCategory": "BusinessApplication",
    "applicationSubCategory": "Event ticketing and door check-in",
    "operatingSystem": "Web browser on any modern phone, tablet or laptop",
-   "description": "Send QR tickets by email, scan guests in with a phone camera even when the Wi-Fi drops, and keep your guest list in your own copy of DoorPass. Hosted for venues under 1,000 capacity, or on a dedicated server.",
+   "description": "Send QR tickets by email, scan guests in with a phone camera even when the Wi-Fi drops, and keep your guest list in your own copy of DoorPass. Hosted for venues up to 500 capacity at a flat $99 a month with no per-ticket fees, or on a dedicated server.",
    "featureList": [
     "QR tickets by email",
     "Camera scanning in the browser, no app",
@@ -95,7 +95,7 @@
      "name": "What is DoorPass?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs and event promoters. Guests get QR tickets by email, and door staff scan them with any phone or laptop camera in the browser, with no app to install. It keeps scanning offline, and each venue gets its own copy of its guest data."
+      "text": "DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs, promoters and local sports leagues. Guests get QR tickets by email, and door staff scan them with any phone or laptop camera in the browser, with no app to install. It keeps scanning offline, and each venue gets its own copy of its guest data."
      }
     },
     {
@@ -103,7 +103,15 @@
      "name": "How is DoorPass different from Ticketmaster or Eventbrite?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Ticketmaster and Eventbrite are ticket marketplaces: guests buy through the platform's own site and account, often with service fees added at checkout. DoorPass is a ticketing and door system you run as your own venue, on a monthly plan. Guests get tickets from you, your staff scan them with phones you already have, and your guest list stays in your own copy that you can export any time."
+      "text": "Ticketmaster and Eventbrite are ticket marketplaces: guests buy through the platform's own site and account, often with service fees added at checkout. DoorPass is a ticketing and door system you run as your own venue, on one flat monthly plan with no per-ticket fees. Guests buy from you, your staff scan them with phones you already have, and your guest list stays in your own copy that you can export any time."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does DoorPass take a cut of ticket sales?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. DoorPass charges one flat monthly price and never touches your money. Paid tickets go through your own Stripe account, so sales land directly with you. Stripe's own card processing fees still apply."
      }
     },
     {
@@ -135,23 +143,23 @@
      "name": "Can we use our own CRM?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Yes. DoorPass works fine without one. When you're ready, connect your own Twenty CRM from Settings, or ask us to set it up for you."
+      "text": "Yes. DoorPass works fine without one. Hosted venues can connect their own Twenty CRM for free with an API key from Settings. Dedicated venues can have us set it up for a one-time $199."
      }
     },
     {
      "@type": "Question",
-     "name": "How long until we're live?",
+     "name": "What are the Hosted plan limits?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Hosted venues are usually ready within a day of signing up. Dedicated servers take a few days because we set them up with you."
+      "text": "Hosted is for venues up to 500 capacity running up to 10 events a month. Bigger venues, or venues running more events or several at once, move to Dedicated with no limits."
      }
     },
     {
      "@type": "Question",
-     "name": "Can we sell tickets online today?",
+     "name": "What happens after we sign up?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "You can run free events, door lists and test-mode checkout today. Card payments with Stripe are coming soon."
+      "text": "Hosted venues sign up online and start setting up right away. For Dedicated, we call you within the next business day to plan your server and launch together."
      }
     }
    ]
@@ -167,11 +175,11 @@
   <div class="wrap bar">
     <a class="brand" href="/" aria-label="DoorPass home"><img class="logo" src="/assets/logo-dark.svg" alt="DoorPass" width="212" height="43"></a>
     <nav class="nav" aria-label="Main">
-      <a href="#how">How it works</a>
-      <a href="#offers">Hosted or dedicated</a>
+      <a href="#control">Features</a>
+      <a href="#built-for">Who it's for</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
-      <a class="btn btn-primary btn-small" href="#request">Request access</a>
+      <a class="btn btn-primary btn-small" href="#signup">Get started</a>
     </nav>
   </div>
 </header>
@@ -181,13 +189,14 @@
 <section id="hero" class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <h1>Door entry that runs on the phones you already have.</h1>
-      <p class="lead">Send QR tickets by email, scan guests in with a phone camera even when the Wi-Fi drops, and keep your guest list in your own copy of DoorPass.</p>
+      <p class="eyebrow">Ticketing and door check-in</p>
+      <h1>Own your door.</h1>
+      <p class="lead">Sell tickets, scan guests in with the phones you already have, and decide exactly who gets in. One flat price, your own Stripe, your own data.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="#request">Request access</a>
+        <a class="btn btn-primary" href="#signup" data-plan="hosted">Get started</a>
         <a class="btn btn-ghost" href="https://demo.doorpass.vip">See the live demo</a>
       </div>
-      <p class="fine">Built for venues under 1,000 capacity. Bigger venues get their own server.</p>
+      <p class="fine">Flat $99 a month. No per-ticket fees. Works offline at the door.</p>
       <button class="sound-toggle" id="hero-sound" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sound on</span></button>
     </div>
     <div class="hero-art">
@@ -222,22 +231,46 @@
   </div>
 </section>
 
-<section id="how" class="section">
+<section id="proof" class="section section-proof">
   <div class="wrap">
-    <h2>From event page to full house in four steps</h2>
-    <ol class="steps">
-      <li><h3>Create your event</h3><p>Set the date, capacity, ticket types and perks. Events start from presets, so the first one takes minutes.</p></li>
-      <li><h3>Share the ticket link</h3><p>Put it on a poster, your site or social. Guests get a QR ticket by email and can add it to their calendar.</p></li>
-      <li><h3>Scan at the door</h3><p>Staff open DoorPass in a browser and point the camera at the ticket. No app to install, and it keeps working offline.</p></li>
-      <li><h3>Keep your data</h3><p>Export your guest list any time, download a backup, or connect your own CRM.</p></li>
-    </ol>
+    <ul class="stats">
+      <li class="reveal"><b>Minutes</b><span>to set up your first event</span></li>
+      <li class="reveal"><b>Your phone</b><span>is the scanner. No app to install</span></li>
+      <li class="reveal"><b>$0</b><span>in hardware to buy</span></li>
+    </ul>
   </div>
 </section>
 
-<section id="product" class="section section-tint">
+<section id="cost" class="section section-navy">
   <div class="wrap">
-    <h2>See what you and your door staff get</h2>
-    <p class="section-lead">Screens from the DoorPass demo, with sample events and a sample guest.</p>
+    <p class="eyebrow">Pricing that stays out of your way</p>
+    <h2>Flat $99 a month. No per-ticket fees.</h2>
+    <p class="section-lead">DoorPass never touches your money. Connect your own Stripe and every ticket sale goes straight to your account. You pay one flat monthly price, however many tickets you sell.</p>
+    <ul class="cards">
+      <li class="card reveal"><h3>Connect your own Stripe</h3><p>Money goes straight to you. Payouts, refunds and reports stay in your own Stripe account.</p></li>
+      <li class="card reveal"><h3>One flat price</h3><p>No service fees added at checkout and no cut of your sales. Your guests pay the price you set.</p></li>
+      <li class="card reveal"><h3>No hardware</h3><p>Door staff scan with phones and laptops you already own. Add a label printer only if you want name badges.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="control" class="section">
+  <div class="wrap">
+    <p class="eyebrow">Full control at the door</p>
+    <h2>You decide who gets in.</h2>
+    <p class="section-lead">Every scan gives your staff one clear answer, even when the Wi-Fi drops.</p>
+    <ul class="results" aria-label="Scan results">
+      <li class="result result-ok reveal"><b>Admitted</b><span>Valid ticket, first scan. Wave them in.</span></li>
+      <li class="result result-check reveal"><b>Check ID</b><span>Already scanned or a flagged ticket. Ask before letting them in.</span></li>
+      <li class="result result-deny reveal"><b>Denied</b><span>Wrong event or unknown ticket. Not getting in.</span></li>
+    </ul>
+    <ul class="cards cards-4">
+      <li class="card reveal"><h3>Works offline</h3><p>Open the scanner on Wi-Fi before doors. Scans keep working if the connection drops and sync when it returns.</p></li>
+      <li class="card reveal"><h3>Staff roles</h3><p>Admins run the back office. Door staff see only what they need, with guest details masked.</p></li>
+      <li class="card reveal"><h3>Group tickets and tables</h3><p>One buyer, many tickets. Each guest gets their own QR code.</p></li>
+      <li class="card reveal"><h3>Member photo check-in</h3><p>Staff see the member's photo at the scan, and a second copy of the same ticket gets flagged.</p></li>
+    </ul>
+    <p class="big data-line">Your data stays yours: your own isolated copy, we don't sell or share it, you can export or send it to your CRM any time, and we delete it when you leave.</p>
     <div class="shots">
       <figure class="shot shot-wide">
         <img src="/assets/shots/admin-v1.webp" width="1600" height="1000" loading="lazy" alt="DoorPass back office: ticket and check-in totals above a list of live events, with a menu for Door, Front desk, Perks, Events, People, Staff and Log">
@@ -255,115 +288,87 @@
   </div>
 </section>
 
-<section id="features" class="section section-navy">
+<section id="built-for" class="section section-navy">
   <div class="wrap">
-    <h2>Everything the door needs, nothing it doesn't</h2>
-    <ul class="features">
-      <li><h3>Camera scanning in the browser</h3><p>Any modern phone or laptop. Staff sign in, scan and go.</p></li>
-      <li><h3>Offline mode</h3><p>Open the scanner on Wi-Fi before doors. Scans keep working if the connection drops and sync when it returns.</p></li>
-      <li><h3>Group orders</h3><p>One buyer, many tickets. Each guest gets their own QR code.</p></li>
-      <li><h3>Member photo check-in</h3><p>Front desk sees the member's photo at the scan, so staff can see who is standing there. Single-use scanning flags a second copy of the same ticket.</p></li>
-      <li><h3>Perks and extras</h3><p>Free drinks, VIP lines, parking or merch, redeemed at the door and counted.</p></li>
-      <li><h3>Staff roles</h3><p>Admins run the back office. Door staff see only what they need, with guest details masked.</p></li>
-      <li><h3>Your CRM, if you want one</h3><p>Connect your own Twenty CRM from Settings whenever you're ready.</p></li>
-      <li><h3>Card payments with Stripe: coming soon</h3><p>Today DoorPass runs free events, door lists and test-mode checkout.</p></li>
+    <p class="eyebrow">Who it's for</p>
+    <h2>Built for every door in town.</h2>
+    <ul class="venues">
+      <li class="card reveal"><h3><a href="/nightclub-ticketing-software/">Nightclubs</a></h3><p>Guest lists, VIP tables and a fast line at the door.</p></li>
+      <li class="card reveal"><h3><a href="/ticketing-for-bars-with-live-music/">Concerts and live music</a></h3><p>Sell your own shows and scan the whole room in quickly.</p></li>
+      <li class="card reveal"><h3><a href="/ticketing-for-member-clubs/">Lounges and member clubs</a></h3><p>Member photo check-in and perks redeemed at the bar.</p></li>
+      <li class="card reveal"><h3><a href="/ticketing-for-comedy-clubs-and-theaters/">Comedy clubs and theaters</a></h3><p>Seated shows, timed entry and group bookings.</p></li>
+      <li class="card reveal"><h3><a href="/ticketing-for-event-promoters/">Festivals and promoters</a></h3><p>Several scanners at several gates, all on the same list.</p></li>
+      <li class="card reveal"><h3><a href="/ticketing-for-fundraisers-and-golf-tournaments/">School and league games</a></h3><p>Soccer, baseball and football for schools and local leagues. Sell your own tickets, add perks like a concession voucher, and run a fundraiser.</p></li>
     </ul>
   </div>
 </section>
 
-<section id="offers" class="section">
+<section id="how" class="section">
   <div class="wrap">
-    <h2>Two ways to run DoorPass</h2>
-    <p class="section-lead">Either way you get your own isolated copy. The difference is who runs the server.</p>
-    <div class="offers">
-      <article class="offer">
-        <h3>Hosted</h3>
-        <p class="offer-for">Designed for venues under 1,000 capacity, usually running one event at a time.</p>
-        <ul>
-          <li>We run the servers. You sign up and get your own address, like <strong>yourvenue.doorpass.vip</strong>.</li>
-          <li>Your own copy of the app and your own database, separate from every other venue.</li>
-          <li>Backups inside your copy, with a download button and an optional email to you.</li>
-          <li>Live within a day of signing up.</li>
-        </ul>
-      </article>
-      <article class="offer offer-dark">
-        <h3>Dedicated</h3>
-        <p class="offer-for">For large venues, several events at the same time, or strict IT rules.</p>
-        <ul>
-          <li>A server set up just for you, on your domain.</li>
-          <li>Room for multiple simultaneous events and larger crowds.</li>
-          <li>Your own CRM connected from day one, if you want it.</li>
-          <li>Set up with you, with a call before the first event.</li>
-        </ul>
-      </article>
-    </div>
+    <p class="eyebrow">How it works</p>
+    <h2>Live in three steps.</h2>
+    <ol class="steps steps-3">
+      <li class="reveal"><h3>Create your event</h3><p>Set the date, capacity, ticket types and perks. Events start from presets, so the first one takes minutes.</p></li>
+      <li class="reveal"><h3>Share your link</h3><p>Put it on a poster, your website or social. Guests pay through your Stripe and get a QR ticket by email.</p></li>
+      <li class="reveal"><h3>Scan at the door</h3><p>Staff open DoorPass in a browser and point the camera at the ticket. No app, and it keeps working offline.</p></li>
+    </ol>
   </div>
 </section>
 
-<section id="data" class="section section-navy">
-  <div class="wrap narrow">
-    <h2>Your data stays yours</h2>
-    <p class="big">Your data stays yours: your own isolated copy, we don't sell or share it, you can export or send it to your CRM any time, and we delete it when you leave.</p>
-    <ul class="checks">
-      <li>Export your guests, tickets and check-ins whenever you like.</li>
-      <li>Download your latest backup from Settings and see exactly when it was made.</li>
-      <li>Ask us to delete everything when you leave.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- MOCK PRICES: placeholder launch pricing, replace before real sales -->
-<section id="pricing" class="section">
+<section id="pricing" class="section section-navy">
   <div class="wrap">
-    <h2>Simple pricing</h2>
-    <p class="section-lead">Launch pricing for the first venues. Payments through Stripe are coming soon and will not change these prices.</p>
+    <p class="eyebrow">Pricing</p>
+    <h2>Two plans. No per-ticket fees.</h2>
     <div class="plans">
-      <article class="plan">
+      <article class="plan reveal">
         <h3>Hosted</h3>
-        <p class="price"><span>$99</span> per month, per venue</p>
+        <p class="price"><span>$99</span> per month</p>
+        <p class="plan-for">For venues up to 500 capacity.</p>
         <ul>
-          <li>Your own copy of DoorPass</li>
-          <li>Venues under 1,000 capacity</li>
-          <li>Unlimited events, usually one at a time</li>
-          <li>Staff accounts and offline door scanning</li>
+          <li>Up to 10 events a month</li>
+          <li>Your own copy and database at yourvenue.doorpass.vip</li>
+          <li>Unlimited staff and door scanners</li>
+          <li>Connect your own Stripe and your own Twenty CRM, free</li>
         </ul>
-        <a class="btn btn-primary" href="#request">Request access</a>
+        <a class="btn btn-primary" href="#signup" data-plan="hosted">Get your account</a>
       </article>
-      <article class="plan plan-dark">
+      <article class="plan plan-dark reveal">
         <h3>Dedicated</h3>
-        <p class="price"><span>From $499</span> per month + $1,500 setup</p>
+        <p class="price"><span>$499</span> per month + $1,500 setup</p>
+        <p class="plan-for">For venues over 500 capacity.</p>
         <ul>
-          <li>Your own server and domain</li>
+          <li>Your own server, with unlimited events and staff</li>
           <li>Several events at the same time</li>
-          <li>Custom quote for your venue</li>
-          <li>Setup call and launch support</li>
+          <li>Twenty CRM set up for you, $199 one-time</li>
+          <li>We call you within the next business day to plan your launch</li>
         </ul>
-        <a class="btn btn-primary" href="#request">Ask for a quote</a>
+        <a class="btn btn-primary" href="#signup" data-plan="dedicated">Request Dedicated</a>
       </article>
     </div>
-    <p class="addon"><strong>CRM connection add-on, $29 per month.</strong> Want your guests flowing into a CRM? Connect your own Twenty CRM from Settings, or ask us to set it up for you.</p>
+    <p class="fine">Prices in US dollars. Card payments go through your own Stripe account, and Stripe's own processing fees apply.</p>
   </div>
 </section>
 
-<section id="faq" class="section section-tint">
+<section id="faq" class="section">
   <div class="wrap narrow">
     <h2>Questions venues ask</h2>
-    <details><summary>What is DoorPass?</summary><p>DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs and event promoters. Guests get QR tickets by email, and door staff scan them with any phone or laptop camera in the browser, with no app to install. It keeps scanning offline, and each venue gets its own copy of its guest data.</p></details>
-    <details><summary>How is DoorPass different from Ticketmaster or Eventbrite?</summary><p>Ticketmaster and Eventbrite are ticket marketplaces: guests buy through the platform's own site and account, often with service fees added at checkout. DoorPass is a ticketing and door system you run as your own venue, on a monthly plan. Guests get tickets from you, your staff scan them with phones you already have, and your guest list stays in your own copy that you can export any time.</p></details>
+    <details><summary>What is DoorPass?</summary><p>DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs, promoters and local sports leagues. Guests get QR tickets by email, and door staff scan them with any phone or laptop camera in the browser, with no app to install. It keeps scanning offline, and each venue gets its own copy of its guest data.</p></details>
+    <details><summary>How is DoorPass different from Ticketmaster or Eventbrite?</summary><p>Ticketmaster and Eventbrite are ticket marketplaces: guests buy through the platform's own site and account, often with service fees added at checkout. DoorPass is a ticketing and door system you run as your own venue, on one flat monthly plan with no per-ticket fees. Guests buy from you, your staff scan them with phones you already have, and your guest list stays in your own copy that you can export any time.</p></details>
+    <details><summary>Does DoorPass take a cut of ticket sales?</summary><p>No. DoorPass charges one flat monthly price and never touches your money. Paid tickets go through your own Stripe account, so sales land directly with you. Stripe's own card processing fees still apply.</p></details>
     <details><summary>What equipment do we need at the door?</summary><p>A phone or laptop with a camera and a browser for each scanner. A travel router or phone hotspot as a backup connection is a good idea, but offline mode covers short drops.</p></details>
     <details><summary>What happens if the internet goes down during doors?</summary><p>Open the scanner on Wi-Fi before doors. It then keeps scanning offline and syncs when the connection is back.</p></details>
     <details><summary>Who owns our guest data?</summary><p>You do. Each venue has its own isolated copy. We don't sell or share it, you can export it any time, and we delete it when you leave.</p></details>
-    <details><summary>Can we use our own CRM?</summary><p>Yes. DoorPass works fine without one. When you're ready, connect your own Twenty CRM from Settings, or ask us to set it up for you.</p></details>
-    <details><summary>How long until we're live?</summary><p>Hosted venues are usually ready within a day of signing up. Dedicated servers take a few days because we set them up with you.</p></details>
-    <details><summary>Can we sell tickets online today?</summary><p>You can run free events, door lists and test-mode checkout today. Card payments with Stripe are coming soon.</p></details>
+    <details><summary>Can we use our own CRM?</summary><p>Yes. DoorPass works fine without one. Hosted venues can connect their own Twenty CRM for free with an API key from Settings. Dedicated venues can have us set it up for a one-time $199.</p></details>
+    <details><summary>What are the Hosted plan limits?</summary><p>Hosted is for venues up to 500 capacity running up to 10 events a month. Bigger venues, or venues running more events or several at once, move to Dedicated with no limits.</p></details>
+    <details><summary>What happens after we sign up?</summary><p>Hosted venues sign up online and start setting up right away. For Dedicated, we call you within the next business day to plan your server and launch together.</p></details>
   </div>
 </section>
 
-<section id="request" class="section section-navy">
+<section id="signup" class="section section-navy">
   <div class="wrap request">
     <div>
-      <h2>Request access</h2>
-      <p class="big">Tell us about your venue. We reply within one business day and set up your copy of DoorPass.</p>
+      <h2>Get started</h2>
+      <p class="big">Tell us about your venue. Hosted venues get their sign-in link by email. Dedicated venues get a call within the next business day.</p>
       <p class="contact">Prefer to talk? Email <a href="mailto:gabriel@getrevenuecopilot.com">gabriel@getrevenuecopilot.com</a> or call <a href="tel:+17753130714">775-313-0714</a>.</p>
     </div>
     <form id="request-form" class="form" method="post" action="https://n8n-k7si.srv2090917.hstgr.cloud/webhook/doorpass-request">
@@ -373,9 +378,8 @@
       <div class="field"><label for="f-capacity">Venue capacity</label>
         <select id="f-capacity" name="capacity" required>
           <option value="" disabled selected>Choose one</option>
-          <option>Under 500</option>
-          <option>500 to 1,000</option>
-          <option>Over 1,000</option>
+          <option value="500-and-under">500 and under</option>
+          <option value="over-500">Over 500</option>
         </select></div>
       <div class="field"><label for="f-events">Events per month</label><input id="f-events" name="events_per_month" type="text" inputmode="numeric" required maxlength="200"></div>
       <div class="field field-wide"><label for="f-current">How do you sell tickets today?</label><input id="f-current" name="current_ticketing" type="text" required maxlength="200"></div>
@@ -383,12 +387,13 @@
       <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required maxlength="200"></div>
       <div class="hp" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <input type="hidden" name="_redirect" value="https://doorpass.vip/thanks.html">
-      <button class="btn btn-primary" type="submit">Request access</button>
+      <button class="btn btn-primary" type="submit">Get started</button>
       <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
 
+<a class="btn btn-primary sticky-cta" href="#signup" data-plan="hosted">Get started</a>
 </main>
 
 <footer class="site-footer">
@@ -405,6 +410,7 @@
   </div>
 </footer>
 
+<script src="/js/reveal.js" defer></script>
 <script src="/js/main.js" defer></script>
 <script src="/js/hero-sound.js" defer></script>
 <script src="/js/hero-venues.js" defer></script>

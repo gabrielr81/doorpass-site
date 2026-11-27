@@ -5,10 +5,11 @@ const { readSite } = require('./helpers');
 const html = readSite('index.html');
 const DATA_SENTENCE = "Your data stays yours: your own isolated copy, we don't sell or share it, you can export or send it to your CRM any time, and we delete it when you leave.";
 
-test('has all sections', () => {
-  for (const id of ['hero', 'how', 'features', 'offers', 'data', 'pricing', 'faq', 'request']) {
+test('has all v2 sections', () => {
+  for (const id of ['hero', 'proof', 'cost', 'control', 'built-for', 'how', 'pricing', 'faq', 'signup']) {
     assert.strictEqual((html.match(new RegExp(`id="${id}"`, 'g')) || []).length, 1, `#${id}`);
   }
+  for (const old of ['features', 'offers', 'data', 'product', 'request']) assert.ok(!html.includes(`id="${old}"`), `old #${old} removed`);
   assert.strictEqual((html.match(/id="request-form"/g) || []).length, 1);
 });
 
@@ -17,15 +18,12 @@ test('contact details present', () => {
   assert.ok(html.includes('775-313-0714'));
 });
 
-test('no live-payment claims', () => {
+test('never claims DoorPass processes payments or takes a cut', () => {
   const text = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '');
-  for (const phrase of [/accept (card )?payments?/i, /take (card )?payments?/i, /card payments?/i, /sell tickets online/i]) {
-    for (const m of text.matchAll(new RegExp(phrase.source, 'gi'))) {
-      const start = Math.max(0, m.index - 160);
-      const near = text.slice(start, m.index + 200).toLowerCase();
-      assert.ok(near.includes('coming soon') || near.includes('today'), `payment claim without "coming soon": ${m[0]}`);
-    }
-  }
+  assert.ok(!/we (process|handle|hold) (your )?(payments|money)/i.test(text));
+  for (const m of text.matchAll(/per[- ]ticket fees?/gi)) assert.match(text.slice(Math.max(0, m.index - 40), m.index), /\bno\s*$/i, 'per-ticket fee only ever appears as "No per-ticket fees"');
+  assert.ok(text.includes('Connect your own Stripe'));
+  assert.ok(text.includes('No per-ticket fees'));
 });
 
 test('data wording is exact and never says "never hold"', () => {
@@ -33,9 +31,22 @@ test('data wording is exact and never says "never hold"', () => {
   assert.ok(!/never hold/i.test(html));
 });
 
-test('mock price marker and prices', () => {
-  assert.ok(html.includes('MOCK PRICES'));
-  for (const p of ['$99', '$29', '$499', '$1,500']) assert.ok(html.includes(p), p);
+test('real prices, no mock marker', () => {
+  assert.ok(!html.includes('MOCK PRICES'));
+  assert.ok(!html.includes('$29'));
+  for (const p of ['$99', '$499', '$1,500', '$199']) assert.ok(html.includes(p), p);
+});
+
+test('plan limits are stated in pricing', () => {
+  const pricing = html.slice(html.indexOf('id="pricing"'), html.indexOf('id="faq"'));
+  assert.ok(pricing.includes('500'), '500 capacity');
+  assert.ok(/10 events/.test(pricing), '10 events a month');
+  assert.ok(/next business day/.test(pricing), 'Dedicated call promise');
+});
+
+test('built for small sports, schools and fundraisers', () => {
+  const s = html.slice(html.indexOf('id="built-for"'), html.indexOf('id="how"'));
+  for (const w of ['school', 'league', 'fundraiser']) assert.ok(new RegExp(w, 'i').test(s), w);
 });
 
 test('demo link', () => assert.ok(html.includes('href="https://demo.doorpass.vip"')));
