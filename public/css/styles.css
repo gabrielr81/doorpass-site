@@ -332,6 +332,7 @@ input:hover, select:hover { border-color: var(--muted); }
 input:focus-visible, select:focus-visible { outline: 3px solid var(--orange); outline-offset: 0; }
 input:user-invalid, select:user-invalid { border-color: var(--orange); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.field .opt { font-weight: 400; color: var(--text-muted); }
 .form .btn { justify-self: start; }
 .form-status { min-height: 1.5em; color: var(--white); }
 .form-status[data-state="error"] { border-left: 4px solid var(--orange); border-radius: var(--r-xs); padding-left: .8rem; }
