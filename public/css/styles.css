@@ -46,7 +46,7 @@ a { color: inherit; text-decoration: none; text-underline-offset: 0.2em; }
 a:hover, a:focus-visible { color: var(--orange); }
 h1, h2, h3 { font-weight: 700; line-height: 1.12; margin: 0; letter-spacing: -0.015em; text-wrap: balance; }
 h1 { font-size: clamp(2.4rem, 6.2vw, 4.4rem); }
-h2 { font-size: clamp(1.8rem, 4vw, 2.9rem); max-width: 22ch; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.9rem); max-width: 40ch; }
 h3 { font-size: 1.2rem; line-height: 1.25; }
 p { margin: 0; text-wrap: pretty; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
@@ -66,7 +66,22 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .logo { width: auto; height: 2.1rem; }
 .nav { display: flex; align-items: center; gap: 1.5rem; font-size: .95rem; }
 .nav a:not(.btn):not(:hover):not(:focus-visible) { text-decoration: none; color: var(--muted-on-navy); }
-@media (max-width: 52rem) { .nav a:not(.btn) { display: none; } }
+.nav-toggle { display: none; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: var(--r-sm); background: transparent; color: var(--white); cursor: pointer; }
+.nav-toggle-icon, .nav-toggle-icon::before, .nav-toggle-icon::after { display: block; width: 1.15rem; height: 2px; background: currentColor; border-radius: var(--r-pill); }
+.nav-toggle-icon { position: relative; }
+.nav-toggle-icon::before, .nav-toggle-icon::after { content: ""; position: absolute; left: 0; }
+.nav-toggle-icon::before { top: -6px; }
+.nav-toggle-icon::after { top: 6px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon { background: transparent; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon::before { top: 0; rotate: 45deg; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon::after { top: 0; rotate: -45deg; }
+@media (max-width: 52rem) {
+  .nav-toggle { display: inline-flex; }
+  .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 11; flex-direction: column; align-items: stretch; gap: .25rem; padding: .75rem var(--gap) 1.1rem; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .nav.is-open { display: flex; }
+  .nav a:not(.btn) { display: flex; align-items: center; min-height: 44px; }
+}
+@media (max-width: 63.99rem) { body:has(.sticky-cta) .site-header .nav .btn { display: none; } }
 
 /* Buttons: rounded, navy text on orange for contrast */
 .btn { display: inline-block; font: 700 1rem/1 var(--font); padding: 1rem 1.6rem; text-decoration: none; border: 2px solid transparent; border-radius: var(--r-sm); cursor: pointer; text-align: center; transition: background-color .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease; }
@@ -262,7 +277,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .card:hover { border-color: rgba(242, 85, 63, .55); }
 .card p { color: var(--muted); }
 .card h3 a { text-decoration: none; }
-@media (min-width: 48rem) { .cards { grid-template-columns: repeat(3, 1fr); } .venues { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 48rem) { .cards { grid-template-columns: repeat(3, 1fr); } .venues { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; } }
 @media (min-width: 66rem) { .cards-4 { grid-template-columns: repeat(4, 1fr); } .venues { grid-template-columns: repeat(3, 1fr); } }
 .results { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
 .result { display: grid; gap: .35rem; padding: 1.1rem 1.25rem; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--surface); }
@@ -333,6 +348,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .plan li { padding-left: 1.2rem; position: relative; }
 .plan li::before { content: ""; position: absolute; left: 0; top: .72em; width: .5rem; height: .5rem; border-radius: var(--r-pill); background: var(--orange); }
 .addon { margin-top: 1.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-left: 4px solid var(--orange); border-radius: var(--r-md); background: var(--surface); max-width: 46rem; }
+#pricing .cards { margin-bottom: clamp(2rem, 5vw, 3.25rem); }
 @media (min-width: 52rem) { .plans { grid-template-columns: 1fr 1fr; } }
 
 /* FAQ */
@@ -342,11 +358,12 @@ summary { font-weight: 700; font-size: 1.1rem; cursor: pointer; list-style: none
 summary::-webkit-details-marker { display: none; }
 summary::after { content: "+"; font-size: 1.5rem; line-height: 1; color: var(--orange); }
 details[open] summary::after { content: "\2212"; }
-details p { margin-top: .8rem; color: var(--muted); max-width: 40rem; }
+details p { margin-top: .8rem; color: var(--muted); }
 
 /* Request form */
 .request { display: grid; gap: 2.5rem; align-items: start; }
-.contact { margin-top: 1.25rem; }
+.request > div { display: grid; gap: 1.5rem; align-content: start; }
+.contact { margin-top: 0; }
 .contact a:not(:hover):not(:focus-visible) { color: var(--white); }
 .form { display: grid; gap: 1.1rem; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(1.25rem, 3vw, 2rem); }
 .field { display: grid; gap: .4rem; }
@@ -417,7 +434,9 @@ p.crumbs a, p.crumbs a:hover, p.crumbs a:focus-visible { text-decoration: none; 
 .cta-band { display: grid; gap: 1.4rem; justify-items: start; }
 
 /* Opt-in sound for the hero party (never autoplays) */
-.sound-toggle { display: inline-flex; align-items: center; gap: .55rem; justify-self: start; font: 700 .9rem/1 var(--font); color: var(--white); background: transparent; border: 1px solid var(--line); border-radius: var(--r-pill); padding: .65rem .95rem; cursor: pointer; }
+.sound-toggle { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; font: 700 .9rem/1 var(--font); color: var(--white); background: rgba(6, 10, 26, .55); border: 1px solid var(--line); border-radius: var(--r-pill); padding: .65rem .95rem; cursor: pointer; }
+.hero-art .sound-toggle { position: absolute; z-index: 4; top: 14%; right: 10%; width: 2.75rem; height: 2.75rem; padding: 0; pointer-events: auto; }
+@media (min-width: 60rem) { .hero-art .sound-toggle { top: 1.25rem; right: 1.25rem; } }
 .sound-toggle:hover { border-color: var(--white); }
 .sound-toggle svg { width: 1.2rem; height: 1.2rem; fill: var(--orange); }
 .sound-toggle .wave { fill: none; stroke: var(--orange); stroke-width: 2; stroke-linecap: round; opacity: .35; }

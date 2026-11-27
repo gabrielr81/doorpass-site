@@ -81,6 +81,27 @@ test('chrome links are not underlined and body links keep a faint one', () => {
   assert.match(css, /@media \(min-width: 66rem\) \{ \.foot \{ grid-template-columns: minmax\(14rem, 1\.35fr\) repeat\(4, 1fr\); \}/);
 });
 
+test('phone menu, pricing fold, and home spacing', () => {
+  const header = fs.readFileSync(path.join(root, 'public/partials/header.html'), 'utf8');
+  assert.match(header, /class="nav-toggle"[^>]*aria-expanded="false"/);
+  assert.match(header, /aria-controls="site-nav"/);
+  assert.match(header, /id="site-nav"/);
+  assert.match(header, /src="\/js\/nav\.js"/);
+  const js = readSite('js/nav.js');
+  assert.match(js, /Escape/);
+  assert.match(js, /aria-expanded/);
+  const css = readSite('css/styles.css');
+  assert.match(css, /@media \(max-width: 52rem\) \{[\s\S]*\.nav-toggle \{ display: inline-flex; \}/);
+  assert.match(css, /body:has\(\.sticky-cta\) \.site-header \.nav \.btn \{ display: none; \}/);
+  assert.match(css, /h2 \{[^}]*max-width:\s*40ch/);
+  assert.match(css, /\.venues \{[^}]*grid-auto-rows:\s*1fr/);
+  const home = readSite('index.html');
+  assert.match(home, /class="hero-art">[\s\S]*<button class="sound-toggle" id="hero-sound"/);
+  assert.doesNotMatch(home.slice(0, home.indexOf('class="hero-art"')), /sound-toggle/);
+  assert.match(home, /id="faq"[\s\S]{0,80}<div class="wrap">/);
+  assert.match(home, /id="signup"[\s\S]*<h2>Get started<\/h2>/);
+});
+
 test('hero is capped and centered on wide screens', () => {
   const css = require('./helpers').readSite('css/styles.css');
   const rules = [...css.matchAll(/\.hero-art\s*\{([^}]*)\}/g)].map((m) => m[1]).join(';');
