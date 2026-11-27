@@ -32,6 +32,13 @@ test('ready to deploy: no placeholder webhook host left', { skip: process.env.PR
   for (const f of ['public/index.html', 'security-headers.conf']) assert.ok(!/REPLACE-ME/.test(read(f)), `${f} still has the placeholder webhook host`);
 });
 
+test('shared chrome uses SSI and the billing redirect is unchanged', () => {
+  const conf = read('nginx.conf');
+  assert.match(conf, /ssi on;/);
+  assert.match(conf, /location \/partials\/ \{ internal; include \/etc\/nginx\/security-headers\.conf; \}/);
+  assert.match(conf, /location ~\* \^\/billing\/\?\$ \{ return 302 https:\/\/billing\.stripe\.com\/p\/login\/test_14A5kD9Zsf5x1rxgP0fMA00; \}/);
+});
+
 test('VPS compose routes demo.doorpass.vip (the home page button points there)', () => {
   const c = read('docker-compose.vps.yml');
   assert.match(c, /Host\(`demo\.doorpass\.vip`\)/);

@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "description": "DoorPass marketing website (doorpass.vip)",
-  "scripts": { "test": "node --test test/*.test.js" },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "dev": "node tools/dev-server.js"
+  },
   "engines": { "node": ">=22" }
 }
