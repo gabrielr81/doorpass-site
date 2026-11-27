@@ -55,6 +55,21 @@ test('success copy per plan, no time promise for Hosted', () => {
   assert.doesNotMatch(js, /24 hours|one business day\./);
 });
 
+test('no page says Request access or links to a removed section', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const { root } = require('./helpers');
+  const pub = path.join(root, 'public');
+  const files = fs.readdirSync(pub, { recursive: true }).map(String).filter((f) => f.endsWith('.html') || f === 'llms.txt');
+  const pages = files.filter((f) => f.endsWith('.html') && !f.startsWith('assets/') && !f.startsWith('partials/'));
+  assert.ok(pages.length >= 43, `expected every page, found ${pages.length}`);
+  for (const f of files) {
+    const t = fs.readFileSync(path.join(pub, f), 'utf8');
+    assert.doesNotMatch(t, /request[-\s]access/i, `${f} still says Request access`);
+    assert.doesNotMatch(t, /#request\b|#offers\b/, `${f} links to a removed section`);
+  }
+});
+
 test('thanks page covers both plans', () => {
   const t = readSite('thanks.html');
   assert.ok(t.includes("We'll email you a link to pay and finish your sign-up."), 'no-JS Hosted: not signed up until they pay');

@@ -52,7 +52,7 @@
 - [How to: stop ticket sharing at the door](https://doorpass.vip/how-to-stop-ticket-sharing-at-the-door/)
 - [DoorPass vs Eventbrite](https://doorpass.vip/eventbrite-alternative/): Eventbrite alternative for venues and promoters
 - [Live demo](https://demo.doorpass.vip): try the scanner and back office
-- [Request access](https://doorpass.vip/#request)
+- [Get started](https://doorpass.vip/#signup)
 - [Privacy](https://doorpass.vip/privacy.html)
 - [Terms](https://doorpass.vip/terms.html)
 
