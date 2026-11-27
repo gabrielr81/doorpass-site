@@ -374,20 +374,29 @@
     <form id="request-form" class="form" method="post" action="https://n8n-k7si.srv2090917.hstgr.cloud/webhook/doorpass-request">
       <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required maxlength="200"></div>
       <div class="field"><label for="f-venue">Venue name</label><input id="f-venue" name="venue" type="text" autocomplete="organization" required maxlength="200"></div>
-      <div class="field"><label for="f-role">Your role</label><input id="f-role" name="role" type="text" autocomplete="organization-title" required maxlength="200"></div>
+      <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required maxlength="200"></div>
+      <div class="field"><label for="f-phone">Phone <span class="opt">(needed for Dedicated)</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" maxlength="200"></div>
+      <div class="field"><label for="f-type">Venue type</label>
+        <select id="f-type" name="venue_type" required>
+          <option value="" disabled selected>Choose one</option>
+          <option>Nightclub</option>
+          <option>Concert venue</option>
+          <option>Lounge or bar</option>
+          <option>Comedy club</option>
+          <option>Festival</option>
+          <option>School or league sports</option>
+          <option>Other</option>
+        </select></div>
       <div class="field"><label for="f-capacity">Venue capacity</label>
         <select id="f-capacity" name="capacity" required>
           <option value="" disabled selected>Choose one</option>
-          <option value="500-and-under">500 and under</option>
-          <option value="over-500">Over 500</option>
+          <option value="500-and-under">500 and under (Hosted, $99/month)</option>
+          <option value="over-500">Over 500 (Dedicated)</option>
         </select></div>
-      <div class="field"><label for="f-events">Events per month</label><input id="f-events" name="events_per_month" type="text" inputmode="numeric" required maxlength="200"></div>
-      <div class="field field-wide"><label for="f-current">How do you sell tickets today?</label><input id="f-current" name="current_ticketing" type="text" required maxlength="200"></div>
-      <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required maxlength="200"></div>
-      <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required maxlength="200"></div>
       <div class="hp" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <input type="hidden" name="plan" value="hosted">
       <input type="hidden" name="_redirect" value="https://doorpass.vip/thanks.html">
-      <button class="btn btn-primary" type="submit">Get started</button>
+      <button class="btn btn-primary" type="submit">Get your account</button>
       <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
     </form>
   </div>
