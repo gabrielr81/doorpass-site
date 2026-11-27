@@ -3,7 +3,6 @@ const assert = require('node:assert');
 const { readSite } = require('./helpers');
 
 const html = readSite('index.html');
-const DATA_SENTENCE = "Your data stays yours: your own isolated copy, we don't sell or share it, you can export or send it to your CRM any time, and we delete it when you leave.";
 
 test('has all v2 sections', () => {
   for (const id of ['hero', 'proof', 'control', 'built-for', 'how', 'pricing', 'faq', 'signup']) {
@@ -33,8 +32,12 @@ test('never claims DoorPass processes payments or takes a cut', () => {
 });
 
 test('data wording is exact and never says "never hold"', () => {
-  assert.ok(html.includes(DATA_SENTENCE.replace(/'/g, "'")));
+  assert.match(html, /<h3>Your data stays yours<\/h3>\s*<p>Your own isolated copy, we don't sell or share it, you can export or send it to your CRM any time, and we delete it when you leave\.<\/p>/);
   assert.ok(!/never hold/i.test(html));
+  assert.match(html, /Payments by Stripe/);
+  assert.match(html, /Works offline at the door/);
+  assert.match(html, /<!-- Placeholder for a future approved venue quote/);
+  assert.doesNotMatch(html, /<blockquote/);
 });
 
 test('real prices, no mock marker', () => {
