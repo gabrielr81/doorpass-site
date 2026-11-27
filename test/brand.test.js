@@ -4,7 +4,7 @@ const { readSite } = require('./helpers');
 
 const css = readSite('css/styles.css');
 // Brand colors and tints, plus the DoorPass scanner's own status colors (Admitted, Check ID, Denied) used on the hero phone
-const ALLOWED = ['#F2553F', '#0A1128', '#FFFFFF', '#131C3A', '#1D2750', '#E9ECF4', '#5A6382', '#B9C0D8', '#16A34A', '#F59E0B', '#DC2626'];
+const ALLOWED = ['#F2553F', '#0A1128', '#FFFFFF', '#131C3A', '#1D2750', '#E9ECF4', '#5A6382', '#B9C0D8', '#060A1A', '#16A34A', '#F59E0B', '#DC2626'];
 
 test('site uses only brand colors and declared tints', () => {
   const found = [...new Set((css.match(/#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b/g) || []).map((c) => c.toUpperCase()))];
@@ -12,13 +12,26 @@ test('site uses only brand colors and declared tints', () => {
   assert.deepStrictEqual(bad, [], `colors outside the brand: ${bad}`);
 });
 
-test('no rounded corners except the logo', () => {
+test('corners use the radius scale', () => {
+  const root = css.match(/:root\s*\{([^}]*)\}/)[1];
+  const scale = { xs: '4px', sm: '8px', md: '12px', lg: '16px', pill: '999px' };
+  for (const [k, v] of Object.entries(scale)) assert.match(root, new RegExp(`--r-${k}:\\s*${v};`), `--r-${k}`);
   const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
   for (const [, selector, body] of rules) {
     for (const m of body.matchAll(/border-radius\s*:\s*([^;]+)/g)) {
       const value = m[1].trim();
-      assert.ok(value === '0' || selector.includes('.logo'), `rounded corner "${value}" on ${selector.trim()}`);
+      assert.ok(value === '0' || value === 'inherit' || /^var\(--r-(xs|sm|md|lg|pill)\)$/.test(value), `"${value}" on ${selector.trim()}`);
     }
+  }
+});
+
+test('site is dark-first', () => {
+  const body = css.match(/(?:^|\n)body\s*\{([^}]*)\}/)[1];
+  assert.match(body, /background:\s*var\(--bg\)/);
+  assert.match(css, /--bg:\s*#060A1A;/);
+  assert.ok(!/\.section-tint\s*\{[^}]*var\(--tint\)/.test(css), 'no pale tinted sections');
+  for (const [, selector, body2] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (/background\s*:\s*var\(--white\)/.test(body2)) assert.ok(/\.btn|\.su-/.test(selector), `white background on ${selector.trim()}`);
   }
 });
 
