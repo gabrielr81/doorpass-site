@@ -1,6 +1,7 @@
 import random, sys, math
 sys.path.insert(0,'/home/claude/hero')
 from limbs import arm, seg_path
+import rig
 N='#0A1128'; O='#F2553F'; W='#FFFFFF'; LIFT='#131C3A'
 TORSO='M-5 33C-8 37-15 38-21 40C-26 42-27.5 47-27.5 54L-25.5 100C-24 130-22 160-21 230H21C22 160 24 130 25.5 100L27.5 54C27.5 47 26 42 21 40C15 38 8 37 5 33Z'
 SHORT='M-5 33C-8 37-15 38-21 40C-26 42-27.5 47-27.5 54L-26 112H26L27.5 54C27.5 47 26 42 21 40C15 38 8 37 5 33Z'
@@ -31,13 +32,13 @@ def crowd_arm(pose, side):
         out=out[:-8]+f'<rect x="{x0:.1f}" y="-13" width="9" height="15" fill="{N}"/><rect x="{x0+1.5:.1f}" y="-11.5" width="6" height="11" fill="{O}" opacity=".85"/></g></g>'
     return out
 def crowd(seed, rows, poses, jump=.2, hair=None):
+    # jointed figures from rig.py (shared parts defined once in the page)
     rnd=random.Random(seed); out=[]
     for n,start,step,y0,s,op in rows:
         for i in range(n):
             x=start+i*step+rnd.uniform(-4,4); y=y0+rnd.uniform(-6,6)
-            cls='p '+rnd.choice(['d1','d2','d3','d4'])+(' j' if rnd.random()<jump else '')
-            arms=''.join(crowd_arm(p,sd) for p,sd in rnd.choice(poses))
-            out.append(fig(x,y,s*rnd.uniform(.94,1.06),arms+torso(rnd.choice(hair or list(HAIR))),op,cls,rnd.uniform(.9,1.1)))
+            cls='p '+rig.variant(rnd)+(' j' if rnd.random()<jump else '')
+            out.append(rig.person(x,y,s*rnd.uniform(.94,1.06),rnd.uniform(.9,1.1),op,cls,rnd.choice(hair or list(HAIR)),pose=rnd.choice(poses)))
     return ''.join(out)
 def scene(name, body, defs=''):
     return f'<svg class="venue-scene v-{name}" data-venue="{name}" viewBox="0 0 300 604" preserveAspectRatio="none" focusable="false"><defs>{defs}</defs>{body}</svg>'
@@ -104,7 +105,7 @@ def lounge():
             if kind=='toast': a=jarm(f'tst{d}',(19,47),(30,62),(30,38),'fist',glass())
             elif kind=='hold': a=jarm('hold',(19,47),(27,74),(31,56),'fist',glass())
             else: a=jarm('talk',(-19,47),(-28,72),(-36,52),'open')
-            g.append(fig(x,y,s*rnd.uniform(.94,1.06),a+torso(rnd.choice(list(HAIR))),op,f'chat {d}',rnd.uniform(.9,1.1)))
+            g.append(rig.person(x,y,s*rnd.uniform(.94,1.06),rnd.uniform(.9,1.1),op,f'chat {d} {rig.variant(rnd)}',rnd.choice(list(HAIR)),arms=a,has_legs=False))
     for d,delay in (('d1',0),('d2',-1),('d3',-2),('d4',-2.8)):
         CSS.append(f'.venue .tst{d}-u {{ animation: toast 3.5s ease-in-out {delay}s infinite; }} .venue .tst{d}-f {{ animation: none; }}')
     CSS.append('.venue .hold-u, .venue .hold-f { animation: none; } .venue .talk-u { animation: none; } .venue .talk-f { animation: talk 1s ease-in-out infinite alternate; }')
@@ -133,7 +134,7 @@ def comedy():
     for n,start,step,y0,s,op in [(12,-4,26,318,.5,.6),(9,-8,36,352,.72,.82),(6,-12,56,398,1,1)]:
         for i in range(n):
             x=start+i*step+rnd.uniform(-3,3); y=y0+rnd.uniform(-3,3); d=rnd.choice(['d1','d2','d3','d4'])
-            aud.append(fig(x,y,s*rnd.uniform(.95,1.05),torso(rnd.choice(list(HAIR))),op,f'laugh {d}',rnd.uniform(.92,1.08)))
+            aud.append(rig.person(x,y,s*rnd.uniform(.95,1.05),rnd.uniform(.92,1.08),op,f'laugh {d}',rnd.choice(list(HAIR)),has_legs=False))
     CSS.append('.venue .laugh { transform-box: fill-box; transform-origin: 50% 100%; animation: laugh 3.5s ease-in-out infinite; } .venue .laugh.d2 { animation-delay: -.12s; } .venue .laugh.d3 { animation-delay: -.25s; } .venue .laugh.d4 { animation-delay: .1s; }')
     seats=''
     return scene('comedy', bg+folds+valance+light+stool+stand+comic+stage+''.join(aud)+seats, defs)
@@ -169,7 +170,7 @@ def festival():
     CSS.append('.venue .flag-cloth { transform-box: fill-box; transform-origin: 0 50%; animation: flag 1s ease-in-out infinite alternate; }')
     rows=[(14,-8,23,282,.38,.45),(9,-10,38,304,.6,.75),(5,-6,66,340,.95,1)]
     c=crowd(33,rows,[[('up','r'),('up','l')],[('v','r'),('v','l')],[('up','r')],[('phone','r')],[('pump','r')],[('up','l')]],jump=.3)
-    shoulders=fig(150,262,.6, crowd_arm('v','r')+crowd_arm('v','l')+torso('long'),.8,'p d2')
+    shoulders=rig.person(150,262,.6,1,.8,'p p2','long',pose=[('v','r'),('v','l')])
     return scene('festival', bg+stars+lasers+stage+performer+lights+shoulders+flag+f'<g class="crowd">{c}</g>', defs)
 
 # ---------------- GAME DAY (school and league sports, not a pro stadium) ----------------
@@ -213,8 +214,7 @@ def gameday():
             x=start+i*step+rnd.uniform(-3,3); y=y0+rnd.uniform(-3,3)
             w=min(7,int(max(0,x)/300*8))
             pose=rnd.choice([[('v','r'),('v','l')],[('up','r'),('up','l')],[('pump','r')],[('phone','r')]])
-            arms=''.join(crowd_arm(p,sd) for p,sd in pose)
-            fans.append(fig(x,y,sc*rnd.uniform(.95,1.05),arms+torso(rnd.choice(list(HAIR)),True),op,f'fan w{w} d{rnd.randint(1,4)}',rnd.uniform(.9,1.1)))
+            fans.append(rig.person(x,y,sc*rnd.uniform(.95,1.05),rnd.uniform(.9,1.1),op,f'fan w{w} {rig.variant(rnd)}',rnd.choice(list(HAIR)),pose=pose))
     CSS.append('.venue .fan { transform-box: fill-box; transform-origin: 50% 100%; animation: wave 4s infinite; }' + ''.join(f' .venue .fan.w{k} {{ animation-delay: {-4+k*.25:.2f}s; }}' for k in range(8)))
     return scene('gameday', bg+towers+board+field+pA+pB+ball+stand+''.join(fans), defs)
 
@@ -243,7 +243,7 @@ KEYS='''@keyframes spot { from { transform: rotate(-14deg); } to { transform: ro
 
 if __name__=='__main__':
     # Writes the bundle that hero-venues.js loads: venues-vN.html (all scenes but the club) and venues-vN.css (deduped).
-    out=sys.argv[1] if len(sys.argv)>1 else '/home/claude/hero/venues-v2'
+    out=sys.argv[1] if len(sys.argv)>1 else '/home/claude/hero/venues-v3'
     svgs={'live':live(),'lounge':lounge(),'comedy':comedy(),'festival':festival(),'gameday':gameday()}
     open(out+'.html','w').write(''.join(svgs.values())+'\n')
     seen=[]; [seen.append(r) for r in CSS if r not in seen]
