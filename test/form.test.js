@@ -57,7 +57,7 @@ test('success copy per plan, no time promise for Hosted', () => {
 
 test('thanks page covers both plans', () => {
   const t = readSite('thanks.html');
-  assert.ok(t.includes("You're in. Check your email for your sign-in link."));
+  assert.ok(t.includes("We'll email you a link to pay and finish your sign-up."), 'no-JS Hosted: not signed up until they pay');
   assert.ok(t.includes("Thanks. We'll call you within the next business day."));
   assert.match(t, /src="\/js\/thanks\.js"/);
   assert.doesNotMatch(t, /Request access|#request"/);
