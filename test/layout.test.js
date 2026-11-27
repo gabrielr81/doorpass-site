@@ -38,3 +38,11 @@ test('hero images are versioned: /assets is cached for a year, so a changed imag
   const html = readSite('index.html');
   for (const m of html.matchAll(/\/assets\/hero\/((?:front|back)[^" ]*?)\.webp/g)) assert.match(m[1], /-v\d+$/, `${m[1]} should carry a -vN suffix`);
 });
+
+test('hero is capped and centered on wide screens', () => {
+  const css = require('./helpers').readSite('css/styles.css');
+  const rules = [...css.matchAll(/\.hero-art\s*\{([^}]*)\}/g)].map((m) => m[1]).join(';');
+  assert.match(rules, /max-width:\s*(1440px|90rem)/);
+  assert.match(rules, /margin-inline:\s*auto/);
+  assert.doesNotMatch(css, /object-position:\s*right/);
+});
