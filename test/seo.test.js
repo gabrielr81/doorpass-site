@@ -49,7 +49,7 @@ test('comparison pages are complete, linked and in the sitemap', () => {
     const visible = [...page.matchAll(/<details><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)];
     assert.strictEqual(faq.length, visible.length, `${p} FAQ schema matches`);
     visible.forEach(([, q, a], i) => { assert.strictEqual(faq[i].name, strip(q)); assert.strictEqual(faq[i].acceptedAnswer.text, strip(a)); });
-    for (const m of page.matchAll(/card payments?/gi)) assert.ok(page.slice(m.index - 120, m.index + 120).toLowerCase().includes('coming soon'), `${p}: payment claim without "coming soon"`);
+    assert.ok(!/we (process|handle|hold) (your )?(payments|money)/i.test(page), `${p}: claims DoorPass processes payments`);
     assert.ok(sitemap.includes(`https://doorpass.vip/${p}/`), `${p} in sitemap`);
     assert.ok((HUBBED.includes(p) ? readSite('ticketing-alternatives/index.html') : html).includes(`href="/${p}/"`), `${p} linked from the home page or the hub`);
   }

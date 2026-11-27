@@ -38,7 +38,7 @@ test('site is dark-first', () => {
 test('orange text is never used on white', () => {
   // orange (#F2553F) on white is 3.4:1; it may only be a fill, border or marker, never a text color on white
   const textOrange = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].filter(([, , body]) => /(^|;)\s*color\s*:\s*var\(--orange\)/.test(body));
-  const allowed = ['.steps li::before', 'summary::after'];
+  const allowed = ['.steps li::before', 'summary::after', '.eyebrow', '.stats b'];  // v2 is dark-first: these sit on navy, never on white
   for (const [, selector] of textOrange) assert.ok(allowed.some((a) => selector.includes(a)), `orange text on ${selector.trim()}`);
 });
 
