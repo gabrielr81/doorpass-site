@@ -142,42 +142,64 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .venue-scene { opacity: 0; transition: opacity 1.2s ease; }
 .venue-scene.is-on { opacity: 1; }
 .venue-scene:not(.is-on) * { animation-play-state: paused; }
+/* The crowd holds still until the page has loaded (hero-venues.js adds .is-live), so the motion never competes with loading. */
+.hero-art:not(.is-live) .venue * { animation-play-state: paused; }
 .hero-art[data-venue="lounge"] .fx-door, .hero-art[data-venue="comedy"] .fx-door { opacity: .15; }
 .fx-door { transition: opacity 1.2s ease; }
+/* Crowd rig (tools/hero/rig.py): root > hip > thigh > shin, and root > torso > upper arm > forearm, torso > head.
+   One shared tempo: 120 BPM, a beat every .5s (hero-sound.js lines these up with the music). The torso leads; the head
+   and forearms follow 80-100 ms later; knees bend as the body dips on the beat. p1-p8 vary each person:
+   --d nudges the timing a few ms, --o shifts the slow sway by whole beats. (No per-person amplitude: variables inside
+   keyframes are recomputed every frame and cost too much with this many figures.) */
+.venue { --d: 0s; --o: 0s; }
+.venue .p1 { --d: 0s; --o: 0s; } .venue .p2 { --d: -.03s; --o: -.5s; } .venue .p3 { --d: .03s; --o: -1s; } .venue .p4 { --d: -.06s; --o: -1.5s; }
+.venue .p5 { --d: .05s; --o: -.5s; } .venue .p6 { --d: -.02s; --o: -1s; } .venue .p7 { --d: .06s; --o: -1.5s; } .venue .p8 { --d: -.05s; --o: 0s; }
 .venue .p, .venue .dj { transform-box: fill-box; transform-origin: 50% 100%; }
-.venue .dj-head { transform-box: fill-box; transform-origin: 50% 90%; animation: nod .5s ease-in-out infinite; }
-/* One shared tempo: 120 BPM, a beat every .5s. hero-sound.js lines these up with the music. */
-.venue .p { animation: bob .5s infinite; }
+.venue .p { animation: bob .5s infinite; animation-delay: var(--d); }
 .venue .p.j { animation: jump 1s infinite; }
 .venue .d2 { animation-delay: -.03s; } .venue .d3 { animation-delay: .03s; } .venue .d4 { animation-delay: -.06s; }
-.venue .p.j.d2, .venue .p.j.d4 { animation-delay: -.5s; }
-.venue .dj { animation: bob .5s infinite; }
-.venue .led { animation: led .5s steps(2, jump-none) infinite; }
-.venue .up-r, .venue .up-l, .venue [class^="fa-"], .venue [class*=" fa-"], .venue .dj-up, .venue .dj-fa { transform-box: view-box; }
-.venue .up-r, .venue .dj-up { transform-origin: 19px 47px; } .venue .up-l { transform-origin: -19px 47px; }
+.venue .hip, .venue .torso, .venue .head, .venue .thigh-l, .venue .thigh-r, .venue .shin-l, .venue .shin-r, .venue .ua-r, .venue .ua-l, .venue .fore-arm-r, .venue .fore-arm-l, .venue .dj-up, .venue .dj-fa, .venue .up-r, .venue .up-l { transform-box: view-box; }
+.venue .torso { transform-origin: 0 112px; animation: lean 2s infinite; animation-delay: calc(var(--o) + var(--d)); }
+.venue .head { transform-origin: 0 34px; animation: nod .5s infinite; animation-delay: calc(var(--d) + .08s); }
+.venue .thigh-l { transform-origin: -9.5px 106px; animation: knee-l .5s infinite; animation-delay: var(--d); }
+.venue .thigh-r { transform-origin: 9.5px 106px; animation: knee-r .5s infinite; animation-delay: var(--d); }
+.venue .shin-l { transform-origin: -9.5px 168px; animation: shin-l .5s infinite; animation-delay: var(--d); }
+.venue .shin-r { transform-origin: 9.5px 168px; animation: shin-r .5s infinite; animation-delay: var(--d); }
+.venue .p.j .thigh-l, .venue .p.j .thigh-r, .venue .p.j .shin-l, .venue .p.j .shin-r { animation-duration: 1s; }
+.venue .ua-r, .venue .dj-up, .venue .up-r { transform-origin: 19px 47px; } .venue .ua-l, .venue .up-l { transform-origin: -19px 47px; }
+.venue .ua-r { animation: arm-r 2s infinite; animation-delay: calc(var(--o) + var(--d) + .04s); } .venue .ua-l { animation: arm-l 2s infinite; animation-delay: calc(var(--o) + var(--d) - .96s); }
+.venue .fore-arm-r, .venue .fore-arm-l { animation: arm-fr .5s infinite; animation-delay: calc(var(--d) + .1s); }
+.venue .fore-arm-l { animation-name: arm-fl; }
 .venue .fa-up-r { transform-origin: 30px 16px; } .venue .fa-up-l { transform-origin: -30px 16px; }
 .venue .fa-v-r { transform-origin: 35px 19px; } .venue .fa-v-l { transform-origin: -35px 19px; }
 .venue .fa-point-r { transform-origin: 31px 24px; } .venue .fa-point-l { transform-origin: -31px 24px; }
 .venue .fa-pump-r { transform-origin: 33px 23px; } .venue .fa-pump-l { transform-origin: -33px 23px; }
 .venue .fa-phone-r { transform-origin: 27px 21px; } .venue .fa-phone-l { transform-origin: -27px 21px; }
+.venue .fore-arm-r.fa-phone-r, .venue .fore-arm-l.fa-phone-l { animation: none; }
+.venue .fore-arm-r.fa-pump-r { animation-name: arm-pump; }
 .venue .dj-fa { transform-origin: 33px 23px; }
-.venue .up-r { animation: sway-r 2s ease-in-out infinite; } .venue .up-l { animation: sway-l 2s ease-in-out infinite; }
-.venue .fa-r { animation: flex-r .5s ease-in-out infinite alternate; } .venue .fa-l { animation: flex-l .5s ease-in-out infinite alternate; }
-.venue .fa-phone-r { animation: none; }
-.venue .d2 .up-r, .venue .d2 .up-l { animation-delay: -.5s; } .venue .d3 .up-r, .venue .d3 .up-l { animation-delay: -1s; } .venue .d4 .up-r, .venue .d4 .up-l { animation-delay: -1.5s; }
-.venue .d2 .fa-r, .venue .d2 .fa-l, .venue .d4 .fa-r, .venue .d4 .fa-l { animation-delay: -.5s; }
+.venue .dj-head { transform-box: fill-box; transform-origin: 50% 90%; animation: nod .5s infinite; }
+.venue .dj { animation: bob .5s infinite; }
+.venue .led { animation: led .5s steps(2, jump-none) infinite; }
 .venue .dj-up { animation: dj-up 1s ease-in-out infinite; } .venue .dj-fa { animation: dj-fa 1s ease-in-out infinite; }
-@keyframes sway-r { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(9deg); } }
-@keyframes sway-l { 0%, 100% { transform: rotate(7deg); } 50% { transform: rotate(-9deg); } }
+/* Easing: weight drops into the beat (fast in, soft landing) and rises slowly between beats; nothing moves at a constant speed. */
+@keyframes bob { 0% { transform: translateY(2px); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: translateY(-4px); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } 100% { transform: translateY(2px); } }
+@keyframes jump { 0% { transform: translateY(2px); animation-timing-function: cubic-bezier(.15, .6, .4, 1); } 42% { transform: translateY(-15px); animation-timing-function: cubic-bezier(.6, 0, .85, .4); } 84% { transform: translateY(2px); animation-timing-function: cubic-bezier(.2, .7, .4, 1); } 92% { transform: translateY(3px); } 100% { transform: translateY(2px); } }
+@keyframes knee-l { 0%, 100% { transform: rotate(6deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: rotate(0); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } }
+@keyframes knee-r { 0%, 100% { transform: rotate(-6deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: rotate(0); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } }
+@keyframes shin-l { 0%, 100% { transform: rotate(-11deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: rotate(0); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } }
+@keyframes shin-r { 0%, 100% { transform: rotate(11deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: rotate(0); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } }
+@keyframes lean { 0%, 100% { transform: rotate(-3deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 50% { transform: rotate(3deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); } }
+@keyframes nod { 0%, 100% { transform: rotate(-3deg) translateY(1px); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: rotate(4deg) translateY(-1px); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } }
+@keyframes arm-r { 0%, 100% { transform: rotate(-7deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 50% { transform: rotate(9deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); } }
+@keyframes arm-l { 0%, 100% { transform: rotate(7deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 50% { transform: rotate(-9deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); } }
+@keyframes arm-fr { 0%, 100% { transform: rotate(8deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: rotate(-10deg); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } }
+@keyframes arm-fl { 0%, 100% { transform: rotate(-8deg); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: rotate(10deg); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } }
+@keyframes arm-pump { 0%, 100% { transform: rotate(18deg); animation-timing-function: cubic-bezier(.2, .8, .4, 1); } 30% { transform: rotate(-16deg); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } }
 @keyframes flex-r { from { transform: rotate(10deg); } to { transform: rotate(-14deg); } }
 @keyframes flex-l { from { transform: rotate(-10deg); } to { transform: rotate(14deg); } }
 @keyframes dj-up { 0%, 48%, 100% { transform: rotate(16deg); } 20%, 30% { transform: rotate(-8deg); } }
 @keyframes dj-fa { 0%, 48%, 100% { transform: rotate(32deg); } 20%, 30% { transform: rotate(-4deg); } }
-/* Bounce: dip on the beat, rise between beats */
-@keyframes bob { 0% { transform: translateY(2px); animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 45% { transform: translateY(-4px); animation-timing-function: cubic-bezier(.5, 0, .7, 1); } 100% { transform: translateY(2px); } }
-/* Jump: push off on the beat, ease out to the top, fall back and land on the next downbeat, small knee bend */
-@keyframes jump { 0% { transform: translateY(2px); animation-timing-function: cubic-bezier(.15, .6, .4, 1); } 42% { transform: translateY(-15px); animation-timing-function: cubic-bezier(.6, 0, .85, .4); } 84% { transform: translateY(2px); animation-timing-function: ease-out; } 92% { transform: translateY(3px); } 100% { transform: translateY(2px); } }
-@keyframes nod { from { transform: rotate(-4deg); } to { transform: rotate(6deg); } }
 @keyframes led { from { opacity: 1; } to { opacity: .3; } }
 /* Live scan result on the hero phone: Admitted (green), Check ID (yellow), Denied (red), the DoorPass scanner's own
    status colors, one every 3.5 s. Laid out in scene pixels (--u = 1 px of the 1440 x 800 scene). */

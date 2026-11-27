@@ -73,10 +73,36 @@ test('hero sound is opt-in: a toggle that starts off, no autoplaying media', () 
 test('six venues, including a school or league game', () => {
   const { readSite } = require('./helpers');
   const page = readSite('index.html');
-  assert.match(readSite('js/hero-venues.js'), /venues-v2\.html/);
-  assert.match(readSite('js/hero-venues.js'), /venues-v2\.css/);
+  assert.match(readSite('js/hero-venues.js'), /venues-v3\.html/);
+  assert.match(readSite('js/hero-venues.js'), /venues-v3\.css/);
   assert.match(page, /<span class="vs" data-venue="gameday">GAME DAY<\/span>/);
   assert.match(page, /alt="[^"]*(school|league) game[^"]*"/);
-  const bundle = readSite('assets/hero/venues-v2.html');
+  const bundle = readSite('assets/hero/venues-v3.html');
   for (const v of ['live', 'lounge', 'comedy', 'festival', 'gameday']) assert.match(bundle, new RegExp(`data-venue="${v}"`), v);
+});
+
+test('crowd rigs are jointed and varied', () => {
+  const { readSite } = require('./helpers');
+  const css = readSite('css/styles.css'), vcss = readSite('assets/hero/venues-v3.css');
+  const html = readSite('assets/hero/venues-v3.html'), page = readSite('index.html');
+  assert.match(readSite('js/hero-venues.js'), /venues-v3\.html/);
+  // joints: hip, thighs and shins in every venue's crowd, including the inline club
+  for (const src of [html, page]) for (const j of ['hip', 'thigh-l', 'shin-l', 'thigh-r', 'shin-r', 'torso', 'head', 'upper-arm-r', 'fore-arm-r']) assert.match(src, new RegExp(`class="${j}[ "]`), j);
+  // shared body parts defined once in the page, reused by every venue
+  assert.match(page, /<symbol id="r-thigh"/); assert.doesNotMatch(html, /id="r-thigh"/);
+  // variation classes set delay and amplitude through custom properties, no inline styles
+  const vars = new Set([...css.matchAll(/\.venue \.p(\d)\s*\{\s*--d:/g)].map((m) => m[1]));
+  assert.ok(vars.size >= 6, `variation classes: ${vars.size}`);
+  assert.doesNotMatch(html + page, /style="/);
+  // eased, never linear, in the figure keyframes
+  const keys = (src) => [...src.matchAll(/@keyframes (bob|jump|lean|knee-[a-z]+|shin-[a-z]+|nod|arm-[a-z]+|wave)\b[^{]*\{([\s\S]*?\})\s*\}/g)];
+  const fk = [...keys(css), ...keys(vcss)];
+  assert.ok(fk.length >= 5, `figure keyframes: ${fk.length}`);
+  assert.match(fk.map((m) => m[0]).join(''), /cubic-bezier\(/);
+  assert.doesNotMatch(fk.map((m) => m[0]).join(''), /\blinear\b/);
+  // overlapping action: head and forearms lag the torso by 60-120 ms
+  assert.match(css, /\.venue \.head \{[^}]*calc\(var\(--d\) \+ \.(0[6-9]|1[0-2]?)s\)/);
+  assert.match(css, /\.venue \.fore-arm-[lr][^{]*\{[^}]*calc\(var\(--d\) \+ \.(0[6-9]|1[0-2]?)s\)/);
+  // size budget: at most 1.5x the v1 pair (113383 + 8001 bytes)
+  assert.ok(Buffer.byteLength(html) + Buffer.byteLength(vcss) <= 182076, 'bundle too big');
 });

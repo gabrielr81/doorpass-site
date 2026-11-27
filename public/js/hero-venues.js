@@ -20,10 +20,12 @@
     setTimeout(() => { next(); setInterval(next, PERIOD); }, PERIOD - (now % PERIOD));
   }
   function load() {
+    // Let the crowd start moving once the page is idle.
+    (window.requestIdleCallback || setTimeout)(() => art.classList.add('is-live'), { timeout: 1500 });
     const css = document.createElement('link');
-    css.rel = 'stylesheet'; css.href = '/assets/hero/venues-v2.css';
+    css.rel = 'stylesheet'; css.href = '/assets/hero/venues-v3.css';
     document.head.append(css);
-    fetch('/assets/hero/venues-v2.html').then((r) => (r.ok ? r.text() : '')).then((svg) => {
+    fetch('/assets/hero/venues-v3.html').then((r) => (r.ok ? r.text() : '')).then((svg) => {
       if (svg) box.insertAdjacentHTML('beforeend', svg);
       start();
     }).catch(() => {});
