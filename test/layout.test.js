@@ -102,6 +102,30 @@ test('phone menu, pricing fold, and home spacing', () => {
   assert.match(home, /id="signup"[\s\S]*<h2>Get started<\/h2>/);
 });
 
+test('product shots are an equal Sell, Ticket, Door row and guides have a sticky aside', () => {
+  const home = readSite('index.html');
+  const order = [...home.matchAll(/<p class="eyebrow">(Sell|Ticket|Door)<\/p>/g)].map((m) => m[1]);
+  assert.deepStrictEqual(order, ['Sell', 'Ticket', 'Door']);
+  const css = readSite('css/styles.css');
+  assert.match(css, /\.shot img \{[^}]*aspect-ratio:\s*3 \/ 4/);
+  assert.match(css, /\.shot-door img \{[^}]*filter:\s*contrast/);
+  assert.match(css, /\.guide-aside \{[^}]*position:\s*sticky/);
+  const guides = fs.readdirSync(path.join(root, 'public')).filter((name) => name.startsWith('how-to-'));
+  assert.strictEqual(guides.length, 10);
+  for (const guide of guides) {
+    const page = fs.readFileSync(path.join(root, 'public', guide, 'index.html'), 'utf8');
+    assert.match(page, /class="guide-layout wrap"/, guide);
+    assert.match(page, /class="guide-aside"/, guide);
+    assert.match(page, /class="cards related-guides"/, guide);
+    assert.match(page, /<h2>Get started<\/h2>/, guide);
+    assert.doesNotMatch(page, /Run your door on DoorPass/, guide);
+    const aside = page.slice(page.indexOf('guide-aside'), page.indexOf('related-guides'));
+    const cards = page.slice(page.indexOf('related-guides'), page.indexOf('cta-band'));
+    assert.ok(!aside.includes(`href="/${guide}/"`), `${guide} aside`);
+    assert.ok(!cards.includes(`href="/${guide}/"`), `${guide} cards`);
+  }
+});
+
 test('hero is capped and centered on wide screens', () => {
   const css = require('./helpers').readSite('css/styles.css');
   const rules = [...css.matchAll(/\.hero-art\s*\{([^}]*)\}/g)].map((m) => m[1]).join(';');
