@@ -186,7 +186,6 @@
         <a class="btn btn-ghost" href="https://demo.doorpass.vip">See the live demo</a>
       </div>
       <p class="fine">Flat $99 a month. No per-ticket fees. Works offline at the door.</p>
-      <button class="sound-toggle" id="hero-sound" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sound on</span></button>
     </div>
     <div class="hero-art">
       <picture class="layer">
@@ -216,6 +215,7 @@
       </picture>
       <div class="scene-box scan-ui" aria-hidden="true"><div class="su-art"><div class="vsign"><span class="vs is-on" data-venue="club">VIP</span><span class="vs" data-venue="live">LIVE</span><span class="vs" data-venue="lounge">MEMBERS</span><span class="vs" data-venue="comedy">COMEDY</span><span class="vs" data-venue="festival">FESTIVAL</span><span class="vs" data-venue="gameday">GAME DAY</span></div><div class="su-phone"><div class="su-screen"><div class="su-scan"></div><div class="su-state su-ok"><div class="su-band"><span class="su-icon"><i>&#10003;</i></span><b>ADMITTED</b></div><div class="su-guest"><p class="su-nm">Jordan M.</p><p class="su-mt">General admission · 9:42 PM</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div><div class="su-state su-check"><div class="su-band"><span class="su-icon"><i>!</i></span><b>CHECK ID</b></div><div class="su-guest"><p class="su-nm">Sam T.</p><p class="su-mt">Already checked in at 9:31 PM. Ask for ID.</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div><div class="su-state su-deny"><div class="su-band"><span class="su-icon"><i>&#10005;</i></span><b>DENIED</b></div><div class="su-guest"><p class="su-nm">Ticket not recognised</p><p class="su-mt">Not valid for Friday Night Live</p><div class="su-bar"><i></i></div><p class="su-cnt"><b>412 checked in</b><span>of 800</span></p></div></div></div></div></div></div>
       <div class="fx" aria-hidden="true"><div class="fx-door"><i></i><i></i><i></i></div><b class="fx-sign"></b><b class="fx-spill"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b><b class="fx-t"></b></div>
+      <button class="sound-toggle" id="hero-sound" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg><span class="sr">Sound on</span></button>
     </div>
   </div>
 </section>
@@ -226,19 +226,6 @@
       <li class="reveal"><b>Minutes</b><span>to set up your first event</span></li>
       <li class="reveal"><b>Your phone</b><span>is the scanner. No app to install</span></li>
       <li class="reveal"><b>$0</b><span>in hardware to buy</span></li>
-    </ul>
-  </div>
-</section>
-
-<section id="cost" class="section section-navy">
-  <div class="wrap">
-    <p class="eyebrow">Pricing that stays out of your way</p>
-    <h2>Flat $99 a month. No per-ticket fees.</h2>
-    <p class="section-lead">DoorPass never touches your money. Connect your own Stripe and every ticket sale goes straight to your account. You pay one flat monthly price, however many tickets you sell.</p>
-    <ul class="cards">
-      <li class="card reveal"><h3>Connect your own Stripe</h3><p>Money goes straight to you. Payouts, refunds and reports stay in your own Stripe account.</p></li>
-      <li class="card reveal"><h3>One flat price</h3><p>No service fees added at checkout and no cut of your sales. Your guests pay the price you set.</p></li>
-      <li class="card reveal"><h3>No hardware</h3><p>Door staff scan with phones and laptops you already own. Add a label printer only if you want name badges.</p></li>
     </ul>
   </div>
 </section>
@@ -306,8 +293,14 @@
 
 <section id="pricing" class="section section-navy">
   <div class="wrap">
-    <p class="eyebrow">Pricing</p>
+    <p class="eyebrow">Pricing that stays out of your way</p>
     <h2>Two plans. No per-ticket fees.</h2>
+    <p class="section-lead">DoorPass never touches your money. Connect your own Stripe and every ticket sale goes straight to your account. You pay one flat monthly price, however many tickets you sell.</p>
+    <ul class="cards">
+      <li class="card reveal"><h3>Connect your own Stripe</h3><p>Money goes straight to you. Payouts, refunds and reports stay in your own Stripe account.</p></li>
+      <li class="card reveal"><h3>One flat price</h3><p>No service fees added at checkout and no cut of your sales. Your guests pay the price you set.</p></li>
+      <li class="card reveal"><h3>No hardware</h3><p>Door staff scan with phones and laptops you already own. Add a label printer only if you want name badges.</p></li>
+    </ul>
     <div class="plans">
       <article class="plan reveal">
         <h3>Hosted</h3>
@@ -339,7 +332,7 @@
 </section>
 
 <section id="faq" class="section">
-  <div class="wrap narrow">
+  <div class="wrap">
     <h2>Questions venues ask</h2>
     <details><summary>What is DoorPass?</summary><p>DoorPass is an event ticketing and door check-in system for venues, nightclubs, member clubs, promoters and local sports leagues. Guests get QR tickets by email, and door staff scan them with any phone or laptop camera in the browser, with no app to install. It keeps scanning offline, and each venue gets its own copy of its guest data.</p></details>
     <details><summary>How is DoorPass different from Ticketmaster or Eventbrite?</summary><p>Ticketmaster and Eventbrite are ticket marketplaces: guests buy through the platform's own site and account, often with service fees added at checkout. DoorPass is a ticketing and door system you run as your own venue, on one flat monthly plan with no per-ticket fees. Guests buy from you, your staff scan them with phones you already have, and your guest list stays in your own copy that you can export any time.</p></details>

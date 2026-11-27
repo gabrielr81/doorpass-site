@@ -6,9 +6,15 @@ const html = readSite('index.html');
 const DATA_SENTENCE = "Your data stays yours: your own isolated copy, we don't sell or share it, you can export or send it to your CRM any time, and we delete it when you leave.";
 
 test('has all v2 sections', () => {
-  for (const id of ['hero', 'proof', 'cost', 'control', 'built-for', 'how', 'pricing', 'faq', 'signup']) {
+  for (const id of ['hero', 'proof', 'control', 'built-for', 'how', 'pricing', 'faq', 'signup']) {
     assert.strictEqual((html.match(new RegExp(`id="${id}"`, 'g')) || []).length, 1, `#${id}`);
   }
+  assert.ok(!html.includes('id="cost"'), 'pricing copy lives in #pricing, not a second section');
+  const pricing = html.slice(html.indexOf('id="pricing"'), html.indexOf('id="faq"'));
+  assert.ok(pricing.includes('Pricing that stays out of your way'));
+  for (const card of ['Connect your own Stripe', 'One flat price', 'No hardware']) assert.ok(pricing.includes(card), card);
+  const body = html.slice(html.indexOf('<body'));
+  assert.strictEqual((body.match(/Flat \$99 a month/g) || []).length, 1, 'the $99 line stays in the hero only');
   for (const old of ['features', 'offers', 'data', 'product', 'request']) assert.ok(!html.includes(`id="${old}"`), `old #${old} removed`);
   assert.strictEqual((html.match(/id="request-form"/g) || []).length, 1);
 });
