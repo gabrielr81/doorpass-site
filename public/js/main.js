@@ -1,6 +1,9 @@
-// DoorPass site: sign-up form. Works with JavaScript off (plain POST to n8n, then /thanks.html?plan=).
+// DoorPass site: sign-up form. Hosted (JavaScript on): n8n creates a Stripe Checkout and the browser goes there,
+// then to /welcome.html. Dedicated, or JavaScript off: plain POST to n8n, then /thanks.html?plan=.
 const FIELDS = ['name', 'venue', 'email', 'phone', 'venue_type', 'capacity', 'plan'];
 const MAX = 200;
+const HOSTED_ENDPOINT = 'https://n8n-k7si.srv2090917.hstgr.cloud/webhook/doorpass-hosted-checkout';
+const GOING = 'Taking you to secure payment...';
 const COPY = {
   hosted: { button: 'Get your account', done: "You're in. Check your email for your sign-in link." },
   dedicated: { button: 'Request Dedicated', done: "Thanks. We'll call you within the next business day." },
@@ -27,15 +30,22 @@ function applyPlan(form, plan) {
   form.dataset.plan = p;
 }
 
-// data: a FormData (or a form element). Returns {ok: boolean}. Never throws.
+// Builds the body n8n expects, or null for the honeypot. data: a FormData or a form element.
+function buildBody(data) {
+  const fd = typeof FormData !== 'undefined' && data instanceof FormData ? data : new FormData(data);
+  if (clean(fd.get('website')) !== '') return null; // honeypot: pretend success, send nothing
+  const body = new URLSearchParams();
+  for (const f of FIELDS) body.set(f, clean(fd.get(f)));
+  if (!COPY[body.get('plan')]) body.set('plan', planFor(body.get('capacity')));
+  body.set('source', 'doorpass.vip');
+  return body;
+}
+
+// Dedicated (and the no-JavaScript fallback). Returns {ok: boolean}. Never throws.
 async function submitRequest(data, fetchImpl, endpoint) {
   try {
-    const fd = typeof FormData !== 'undefined' && data instanceof FormData ? data : new FormData(data);
-    if (clean(fd.get('website')) !== '') return { ok: true }; // honeypot: pretend success, send nothing
-    const body = new URLSearchParams();
-    for (const f of FIELDS) body.set(f, clean(fd.get(f)));
-    if (!COPY[body.get('plan')]) body.set('plan', planFor(body.get('capacity')));
-    body.set('source', 'doorpass.vip');
+    const body = buildBody(data);
+    if (!body) return { ok: true };
     const res = await (fetchImpl || fetch)(endpoint || data.action, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
@@ -47,7 +57,28 @@ async function submitRequest(data, fetchImpl, endpoint) {
   }
 }
 
-if (typeof module !== 'undefined') module.exports = { submitRequest, clean, planFor, applyPlan, FIELDS, MAX, COPY };
+// Hosted: asks n8n for a Stripe Checkout address. Returns {ok, url} or {ok: false, error?}. Never throws.
+// Only a https://checkout.stripe.com/ address is followed.
+async function startCheckout(data, fetchImpl, endpoint) {
+  try {
+    const body = buildBody(data);
+    if (!body) return { ok: true, url: '/thanks.html' };
+    const res = await (fetchImpl || fetch)(endpoint || HOSTED_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', Accept: 'application/json' },
+      body: body.toString(),
+    });
+    let json = {};
+    try { json = (await res.json()) || {}; } catch (e) { json = {}; }
+    const url = typeof json.url === 'string' ? json.url : '';
+    if (res && res.ok && url.startsWith('https://checkout.stripe.com/')) return { ok: true, url };
+    return typeof json.error === 'string' && json.error ? { ok: false, error: clean(json.error) } : { ok: false };
+  } catch (e) {
+    return { ok: false };
+  }
+}
+
+if (typeof module !== 'undefined') module.exports = { submitRequest, startCheckout, buildBody, HOSTED_ENDPOINT, clean, planFor, applyPlan, FIELDS, MAX, COPY };
 
 if (typeof document !== 'undefined') {
   const form = document.getElementById('request-form');
@@ -69,6 +100,18 @@ if (typeof document !== 'undefined') {
       button.disabled = true;
       status.removeAttribute('data-state');
       status.textContent = 'Sending...';
+      if (plan === 'hosted') {
+        const go = await startCheckout(new FormData(form));
+        if (go.ok) {
+          status.textContent = GOING;
+          window.location.assign(go.url);
+          return; // the button stays disabled while the browser leaves
+        }
+        status.dataset.state = 'error';
+        status.textContent = go.error ? go.error + ' ' + FAIL.replace('We could not send that. ', '') : FAIL;
+        button.disabled = false;
+        return;
+      }
       const result = await submitRequest(new FormData(form), undefined, form.action);
       if (result.ok) {
         form.reset();
